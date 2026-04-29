@@ -1,133 +1,75 @@
-import 'package:fcf_colombia_by_layton/core/widgets/app_sidebar.dart';
-import 'package:fcf_colombia_by_layton/features/home/presentation/widgets/home_featured_players.dart';
-import 'package:fcf_colombia_by_layton/features/home/presentation/widgets/home_header.dart';
-import 'package:fcf_colombia_by_layton/features/home/presentation/widgets/home_last_result.dart';
-import 'package:fcf_colombia_by_layton/features/home/presentation/widgets/home_next_match.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fcf_colombia_by_layton/core/widgets/responsive.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../core/design_system/app_colors.dart';
+import '../../../../core/design_system/app_spacing.dart';
+import '../../../../core/design_system/app_text_styles.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+/// Pantalla de inicio
+class HomeScreen extends ConsumerWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Responsive(
-      mobile: _buildMobile(context),
-      tablet: _buildTablet(context),
-      desktop: _buildDesktop(context),
-    );
-  }
-
-  // ------------------ MOBILE ------------------
-  Widget _buildMobile(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      drawer: Drawer(
-        child: AppSidebar(
-          selected: "home",
-            onItemSelected: (id) {
-              context.go("/$id");
-            },
-        ),
-      ),
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        title: const Text('FCF Colombia'),
+        centerTitle: true,
         elevation: 0,
-        title: const Text("FCF App"),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: const [
-          HomeHeader(),
-          SizedBox(height: 20),
-          HomeNextMatch(),
-          SizedBox(height: 20),
-          HomeLastResult(),
-          SizedBox(height: 20),
-          HomeFeaturedPlayers(),
-        ],
-      ),
-    );
-  }
-
-  // ------------------ TABLET ------------------
-  Widget _buildTablet(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: ListView(
-        padding: const EdgeInsets.all(32),
-        children: const [
-          HomeHeader(),
-          SizedBox(height: 32),
-          Row(
-            children: [
-              Expanded(child: HomeNextMatch()),
-              SizedBox(width: 32),
-              Expanded(child: HomeLastResult()),
-            ],
-          ),
-          SizedBox(height: 32),
-          HomeFeaturedPlayers(),
-        ],
-      ),
-    );
-  }
-
-  // ------------------ DESKTOP ------------------
-  Widget _buildDesktop(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Row(
-        children: [
-          AppSidebar(
-            selected: "home",
-            onItemSelected: (id) {
-              context.go("/$id");
-            },
-          ),
-          Expanded(
-            child: Center(
-              child: SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 1100),
-                  child: const Padding(
-                    padding: EdgeInsets.all(32),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        HomeHeader(),
-                        SizedBox(height: 32),
-                        _DesktopCardsRow(),
-                        SizedBox(height: 32),
-                        HomeFeaturedPlayers(),
-                      ],
-                    ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(AppSpacing.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Hero Section
+            Container(
+              height: 200,
+              decoration: BoxDecoration(
+                color: AppColors.primary,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Text(
+                  'Próximo Partido',
+                  style: AppTextStyles.h2.copyWith(
+                    color: AppColors.textInverse,
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: AppSpacing.lg),
+
+            // Recent Results Section
+            Text(
+              'Resultados Recientes',
+              style: AppTextStyles.h3,
+            ),
+            const SizedBox(height: AppSpacing.md),
+            Container(
+              height: 100,
+              color: AppColors.primary.withValues(alpha: 0.1),
+              child: const Center(
+                child: Text('Carrusel de resultados'),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.lg),
+
+            // News Section
+            Text(
+              'Noticias',
+              style: AppTextStyles.h3,
+            ),
+            const SizedBox(height: AppSpacing.md),
+            Container(
+              height: 100,
+              color: AppColors.accent.withValues(alpha: 0.1),
+              child: const Center(
+                child: Text('Feed de noticias'),
+              ),
+            ),
+          ],
+        ),
       ),
-    );
-  }
-}
-
-// ------------------ CARDS ROW DESKTOP ------------------
-
-class _DesktopCardsRow extends StatelessWidget {
-  const _DesktopCardsRow();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Row(
-      children: [
-        Expanded(child: HomeNextMatch()),
-        SizedBox(width: 32),
-        Expanded(child: HomeLastResult()),
-      ],
     );
   }
 }

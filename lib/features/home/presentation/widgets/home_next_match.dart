@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:country_flags/country_flags.dart';
 
 class HomeNextMatch extends StatelessWidget {
   const HomeNextMatch({super.key});
@@ -25,7 +24,7 @@ class HomeNextMatch extends StatelessWidget {
               Expanded(
                 child: Row(
                   children: [
-                    _team("co", "COL"),
+                    _team("🇨🇴", "COL"),
                   ],
                 ),
               ),
@@ -34,7 +33,7 @@ class HomeNextMatch extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    _team("ar", "ARG"),
+                    _team("🇦🇷", "ARG"),
                   ],
                 ),
               ),
@@ -47,17 +46,10 @@ class HomeNextMatch extends StatelessWidget {
     );
   }
 
-  Widget _team(String code, String name) {
+  Widget _team(String flag, String name) {
     return Row(
       children: [
-        SizedBox(
-          width: 28,
-          height: 20,
-          child: FittedBox(
-            fit: BoxFit.cover,
-            child: CountryFlag.fromCountryCode(code),
-          ),
-        ),
+        Text(flag, style: const TextStyle(fontSize: 28)),
         const SizedBox(width: 8),
         Text(name, style: const TextStyle(fontSize: 18)),
       ],

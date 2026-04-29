@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:country_flags/country_flags.dart';
 
 class HomeLastResult extends StatelessWidget {
   const HomeLastResult({super.key});
@@ -25,7 +24,7 @@ class HomeLastResult extends StatelessWidget {
               Expanded(
                 child: Row(
                   children: [
-                    _teamScore("co", "3"),
+                    _teamScore("🇨🇴", "3"),
                   ],
                 ),
               ),
@@ -34,7 +33,7 @@ class HomeLastResult extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    _teamScore("ar", "1"),
+                    _teamScore("🇦🇷", "1"),
                   ],
                 ),
               ),
@@ -47,17 +46,10 @@ class HomeLastResult extends StatelessWidget {
     );
   }
 
-  Widget _teamScore(String code, String score) {
+  Widget _teamScore(String flag, String score) {
     return Row(
       children: [
-        SizedBox(
-          width: 28,
-          height: 20,
-          child: FittedBox(
-            fit: BoxFit.cover,
-            child: CountryFlag.fromCountryCode(code),
-          ),
-        ),
+        Text(flag, style: const TextStyle(fontSize: 28)),
         const SizedBox(width: 8),
         Text(score, style: const TextStyle(fontSize: 20)),
       ],

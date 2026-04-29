@@ -11,23 +11,45 @@ dependencies:
 
   cupertino_icons: ^1.0.6
 
-  # Estado
+  # State Management
   flutter_riverpod: ^2.5.0
+  riverpod_annotation: ^2.3.0
 
-  # Navegación moderna
+  # Navigation
   go_router: ^14.2.0
-  country_flags: ^2.2.0
+
+  # HTTP & API
+  dio: ^5.3.0
+
+  # Local Storage
+  shared_preferences: ^2.2.0
+
+  # Serialization
+  freezed_annotation: ^2.4.0
+  json_annotation: ^4.8.0
+
+  # Image Caching
+  cached_network_image: ^3.3.0
+
+  # Loading & Animations
+  shimmer: ^3.0.0
+
+  # Localization & Formatting
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
 
+  # Code Generation
+  build_runner: ^2.4.0
+  riverpod_generator: ^2.3.0
+  freezed: ^2.4.0
+  json_serializable: ^6.7.0
+
 flutter:
   uses-material-design: true
   assets:
     - assets/
     - assets/data/
-    - assets/images/
-    - assets/history/
-    - assets/multimedia/

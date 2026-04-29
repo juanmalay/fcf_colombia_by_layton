@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fcf_colombia_by_layton/core/config/app_colors.dart';
+import '../../../../core/design_system/app_colors.dart';
+import '../../../../core/design_system/app_text_styles.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
@@ -11,8 +12,8 @@ class HomeHeader extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors.yellow,
-            AppColors.red.withOpacity(0.8),
+            AppColors.accent,
+            AppColors.error.withValues(alpha: 0.8),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -23,26 +24,18 @@ class HomeHeader extends StatelessWidget {
       child: Row(
         children: [
           // TEXTO
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "Selección Colombia",
-                  style: TextStyle(
-                    fontSize: 26,
-                    height: 1.1,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+                  style: AppTextStyles.h1.copyWith(color: Colors.black),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   "Noticias, partidos, jugadores y más",
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black87,
-                  ),
+                  style: AppTextStyles.body.copyWith(color: Colors.black87),
                 ),
               ],
             ),
@@ -51,7 +44,7 @@ class HomeHeader extends StatelessWidget {
           // LOGO
           CircleAvatar(
             radius: 40,
-            backgroundColor: Colors.black.withOpacity(0.1),
+            backgroundColor: Colors.black.withValues(alpha: 0.1),
             child: const Icon(
               Icons.sports_soccer,
               size: 40,

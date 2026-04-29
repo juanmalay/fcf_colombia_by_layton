@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../core/design_system/app_colors.dart';
+import '../../../../core/design_system/app_text_styles.dart';
 
 class HomeFeaturedPlayers extends StatelessWidget {
   const HomeFeaturedPlayers({super.key});
@@ -45,8 +47,9 @@ class _PlayerCard extends StatelessWidget {
       width: 150,
       height: 200,
       decoration: BoxDecoration(
-        color: Colors.grey.shade900,
+        color: AppColors.background,
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.border, width: 0.5),
       ),
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -54,8 +57,8 @@ class _PlayerCard extends StatelessWidget {
         children: [
           const CircleAvatar(
             radius: 32,
-            backgroundColor: Colors.white24,
-            child: Icon(Icons.person, size: 38),
+            backgroundColor: AppColors.primary,
+            child: Icon(Icons.person, size: 38, color: Colors.white),
           ),
           const SizedBox(height: 12),
           Text(name, textAlign: TextAlign.center),

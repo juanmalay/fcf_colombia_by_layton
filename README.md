@@ -1,16 +1,56 @@
-# fcf_colombia_by_layton
+# ⚽ FCF Colombia
 
-A new Flutter project.
+Plataforma completa de fútbol colombiano y sudamericano.
 
-## Getting Started
+Incluye:
+- 📱 App Flutter (Frontend)
+- ⚙️ API Spring Boot (Backend)
+- 🗄️ PostgreSQL
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 🚀 Cómo ejecutar
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Backend
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+cd backend_api
+mvn clean package -DskipTests
+java -jar target/fcf-colombia-backend-1.0.0.jar
+
+Servidor:
+
+http://localhost:8080/api/v1
+
+
+Flutter
+
+cd fcf_colombia_by_layton
+flutter pub get
+flutter run
+
+🧱 Estructura
+
+workspace/
+├── fcf_colombia_by_layton/   # Flutter
+└── backend_api/              # Spring Boot
+
+📊 Estado actual
+
+✅ Matches (frontend + backend)
+⚠️ Teams (requiere alineación frontend)
+⚠️ Home / Explore (en refactor)
+⏳ Players / Tournaments / News (pendientes)
+
+## ✨ Features
+
+- Matches, teams, players, tournaments
+- Favorites system
+- 🔥 Kit history by team (football jerseys timeline)
+- 🔥 Personal collection of favorite kits
+
+📘 Documentación
+
+SYSTEM_ARCHITECTURE.md → arquitectura completa
+DEVELOPMENT_WORKFLOW.md → reglas de desarrollo
+MODULE_STATUS.md → estado de módulos
