@@ -55,7 +55,10 @@ class AppRouter {
                 path: ':matchId',
                 name: 'match_detail',
                 builder: (context, state) {
-                  final matchId = state.pathParameters['matchId'] ?? '';
+                  final String? matchId = state.pathParameters['matchId'];
+                  if (matchId == null) {
+                    throw Exception('matchId es requerido');
+                  }
                   return MatchDetailScreen(matchId: matchId);
                 },
               ),
@@ -152,5 +155,22 @@ class AppRouter {
       MainTab.settings => '/settings',
     };
     context.go(path);
+  }
+
+  /// Ruta para detalles de partidos
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case '/matchDetail':
+        final matchId = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => MatchDetailScreen(matchId: matchId),
+        );
+      default:
+        return MaterialPageRoute(
+          builder: (_) => const Scaffold(
+            body: Center(child: Text('Ruta no definida')),
+          ),
+        );
+    }
   }
 }

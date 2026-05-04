@@ -2,6 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fcf_colombia_by_layton/features/matches/data/datasources/matches_local_datasource_impl.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized(); // Inicializar bindings
+
   group('MatchesLocalDataSourceImpl', () {
     late MatchesLocalDataSourceImpl dataSource;
 

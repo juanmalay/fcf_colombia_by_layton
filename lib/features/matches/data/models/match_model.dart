@@ -7,7 +7,7 @@ part 'match_model.freezed.dart';
 part 'match_model.g.dart';
 
 /// DTO de Match - mapea la respuesta JSON del backend
-/// 
+///
 /// Campo nullable:
 /// - homeScore: puede ser null para partidos no jugados
 /// - awayScore: puede ser null para partidos no jugados
@@ -58,8 +58,12 @@ class MatchModel with _$MatchModel {
         venue: venue,
         referee: referee,
         // Usar valores por defecto si no vienen del backend
-        createdAt: createdAt != null ? _dateTimeFromString(createdAt!) : DateTime.now(),
-        updatedAt: updatedAt != null ? _dateTimeFromString(updatedAt!) : DateTime.now(),
+        createdAt: createdAt != null
+            ? _dateTimeFromString(createdAt!)
+            : DateTime.now(),
+        updatedAt: updatedAt != null
+            ? _dateTimeFromString(updatedAt!)
+            : DateTime.now(),
       );
 }
 

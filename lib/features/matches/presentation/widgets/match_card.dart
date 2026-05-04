@@ -16,7 +16,7 @@ class MatchCard extends StatelessWidget {
     Key? key,
     required this.match,
     this.onTap,
-    required this.isFavorite,
+    this.isFavorite = false, // Cambiado a opcional con valor predeterminado
     this.onFavoriteTap,
     this.showVenue = true,
   }) : super(key: key);

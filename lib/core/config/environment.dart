@@ -20,7 +20,8 @@ class EnvironmentConfig {
   /// Detecta automáticamente plataforma para usar la URL correcta del backend
   static const EnvironmentConfig development = EnvironmentConfig(
     environment: Environment.dev,
-    apiBaseUrl: 'http://localhost:8080', // Se sobrescribe en getDevelopmentConfig
+    apiBaseUrl:
+        'http://localhost:8080', // Se sobrescribe en getDevelopmentConfig
     useMockData: false,
     enableLogging: true,
   );
@@ -49,12 +50,8 @@ class EnvironmentConfig {
   /// Ejemplo: '192.168.1.100', '192.168.0.5', '10.0.0.50', etc.
   static const String _localNetworkIp = '192.168.1.2';
 
-  /// IP para Android Emulator (alias que apunta al host)
-  /// NO CAMBIAR - es especial del emulador
-  static const String _androidEmulatorIp = '10.0.2.2';
-
   /// Retorna configuración de development adaptada a la plataforma
-  /// 
+  ///
   /// Mapeo:
   /// - Web (Chrome/Firefox): localhost:8080
   /// - Android Emulator: 10.0.2.2:8080

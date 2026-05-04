@@ -5,60 +5,42 @@ import '../../../../core/design_system/app_colors.dart';
 import '../../../../core/design_system/app_spacing.dart';
 import '../../../../core/design_system/app_text_styles.dart';
 import '../../domain/entities/match.dart' as match_entity;
-import '../../domain/entities/team.dart';
 import '../providers/match_providers.dart';
 import '../../../favorites/presentation/providers/favorites_providers.dart';
-import '../../data/models/team_model.dart';
 import '../widgets/match_card.dart';
 
-/// Pantalla principal de partidos
-/// Muestra partidos próximos y resultados recientes desde el backend
 class MatchesScreen extends ConsumerWidget {
   const MatchesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favorites = ref.watch(favoritesProvider);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Partidos'),
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: ListView.builder(
-        itemCount: 10, // Ejemplo
-        itemBuilder: (context, index) {
-          final match = match_entity.Match(
-            id: 'match_$index',
-            homeTeam: Team(id: '1', name: 'Team A', logoUrl: ''),
-            awayTeam: Team(id: '2', name: 'Team B', logoUrl: ''),
-            matchDate: DateTime.now(),
-            tournament: 'Tournament X',
-            status: match_entity.MatchStatus.upcoming,
-            venue: 'Stadium Y',
-            referee: 'Referee Z',
-            createdAt: DateTime.now(),
-            updatedAt: DateTime.now(),
-          );
-          final isFavorite = favorites.contains('match:${match.id}');
-
-          return MatchCard(
-            match: match,
-            isFavorite: isFavorite,
-            onFavoriteTap: () => ref.read(favoritesProvider.notifier).toggle('match:${match.id}'),
-          );
-        },
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Partidos'),
+          centerTitle: true,
+          elevation: 0,
+          bottom: const TabBar(
+            tabs: [
+              Tab(text: 'Próximos'),
+              Tab(text: 'Resultados'),
+            ],
+          ),
+        ),
+        body: const TabBarView(
+          children: [
+            _UpcomingTab(),
+            _ResultsTab(),
+          ],
+        ),
       ),
     );
   }
 }
 
-/// Tab de partidos próximos
 class _UpcomingTab extends ConsumerWidget {
-  final Function(match_entity.Match) onMatchTap;
-
-  const _UpcomingTab({required this.onMatchTap});
+  const _UpcomingTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -66,41 +48,34 @@ class _UpcomingTab extends ConsumerWidget {
     final upcomingState = ref.watch(upcomingMatchesProvider);
 
     return upcomingState.when(
-      loading: () => const _LoadingState(),
-      error: (error, stackTrace) => _ErrorState(
-        message: 'Error cargando partidos próximos',
-        onRetry: () => ref.refresh(upcomingMatchesProvider),
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, stackTrace) => Center(
+        child: Text('Error cargando partidos próximos'),
       ),
       data: (matches) => matches.isEmpty
-          ? _EmptyState(
-              message: 'No hay partidos próximos en este momento',
+          ? const Center(
+              child: Text('No hay partidos próximos en este momento'),
             )
-          : RefreshIndicator(
-              onRefresh: () async {
-                await ref.read(upcomingMatchesProvider.notifier).refresh();
+          : ListView.builder(
+              itemCount: matches.length,
+              itemBuilder: (context, index) {
+                final match = matches[index];
+                final favoriteId = 'match:${match.id}';
+                return MatchCard(
+                  match: match,
+                  isFavorite: favorites.contains(favoriteId),
+                  onFavoriteTap: () =>
+                      ref.read(favoritesProvider.notifier).toggle(favoriteId),
+                  onTap: () => context.push('/matches/${match.id}'),
+                );
               },
-              child: ListView.builder(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                itemCount: matches.length,
-                itemBuilder: (context, index) {
-                  final match = matches[index];
-                  return MatchCard(
-                    match: match,
-                    isFavorite: favorites.contains('match:${match.id}'),
-                    onFavoriteTap: () => ref.read(favoritesProvider.notifier).toggle('match:${match.id}'),
-                  );
-                },
-              ),
             ),
     );
   }
 }
 
-/// Tab de resultados recientes
 class _ResultsTab extends ConsumerWidget {
-  final Function(match_entity.Match) onMatchTap;
-
-  const _ResultsTab({required this.onMatchTap});
+  const _ResultsTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -108,138 +83,28 @@ class _ResultsTab extends ConsumerWidget {
     final recentState = ref.watch(recentMatchesProvider);
 
     return recentState.when(
-      loading: () => const _LoadingState(),
-      error: (error, stackTrace) => _ErrorState(
-        message: 'Error cargando resultados',
-        onRetry: () => ref.refresh(recentMatchesProvider),
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, stackTrace) => Center(
+        child: Text('Error cargando resultados recientes'),
       ),
       data: (matches) => matches.isEmpty
-          ? _EmptyState(
-              message: 'No hay resultados disponibles',
+          ? const Center(
+              child: Text('No hay resultados recientes en este momento'),
             )
-          : RefreshIndicator(
-              onRefresh: () async {
-                await ref.read(recentMatchesProvider.notifier).refresh();
+          : ListView.builder(
+              itemCount: matches.length,
+              itemBuilder: (context, index) {
+                final match = matches[index];
+                final favoriteId = 'match:${match.id}';
+                return MatchCard(
+                  match: match,
+                  isFavorite: favorites.contains(favoriteId),
+                  onFavoriteTap: () =>
+                      ref.read(favoritesProvider.notifier).toggle(favoriteId),
+                  onTap: () => context.push('/matches/${match.id}'),
+                );
               },
-              child: ListView.builder(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                itemCount: matches.length,
-                itemBuilder: (context, index) {
-                  final match = matches[index];
-                  return MatchCard(
-                    match: match,
-                    isFavorite: favorites.contains('match:${match.id}'),
-                    onFavoriteTap: () => ref.read(favoritesProvider.notifier).toggle('match:${match.id}'),
-                  );
-                },
-              ),
             ),
     );
   }
 }
-
-/// Widget de estado: cargando
-class _LoadingState extends StatelessWidget {
-  const _LoadingState();
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(
-            width: 50,
-            height: 50,
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
-              strokeWidth: 3,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Text(
-            'Cargando partidos...',
-            style: AppTextStyles.body.copyWith(color: AppColors.textSecondary),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Widget de estado: error
-class _ErrorState extends StatelessWidget {
-  final String message;
-  final VoidCallback? onRetry;
-
-  const _ErrorState({
-    required this.message,
-    this.onRetry,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.error_outline,
-            size: 60,
-            color: AppColors.error,
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Text(
-            message,
-            style: AppTextStyles.body.copyWith(color: AppColors.textSecondary),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppSpacing.md),
-          if (onRetry != null)
-            ElevatedButton.icon(
-              onPressed: onRetry,
-              icon: const Icon(Icons.refresh),
-              label: const Text('Reintentar'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Widget de estado: vacío
-class _EmptyState extends StatelessWidget {
-  final String message;
-
-  const _EmptyState({required this.message});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.sports_soccer,
-            size: 60,
-            color: AppColors.textTertiary,
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Text(
-            message,
-            style: AppTextStyles.body.copyWith(color: AppColors.textSecondary),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ============================================================================
-// CÓDIGO ANTIGUO PRESERVADO
-// ============================================================================
-// Comentario preservado pero sin usar
