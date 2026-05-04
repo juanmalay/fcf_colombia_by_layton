@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../favorites/presentation/providers/favorites_providers.dart';
 import '../../domain/entities/team.dart';
 import '../providers/team_providers.dart';
 import '../../../../core/design_system/app_colors.dart';
@@ -17,6 +18,9 @@ class TeamDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final teamState = ref.watch(teamDetailProvider(teamId));
+    final favorites = ref.watch(favoritesProvider);
+    final favoriteId = 'team:$teamId';
+    final isFavorite = favorites.contains(favoriteId);
 
     return Scaffold(
       appBar: AppBar(
@@ -25,6 +29,16 @@ class TeamDetailScreen extends ConsumerWidget {
         elevation: 0,
         backgroundColor: AppColors.background,
         foregroundColor: AppColors.textPrimary,
+        actions: [
+          IconButton(
+            tooltip: isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos',
+            onPressed: () => ref.read(favoritesProvider.notifier).toggle(favoriteId),
+            icon: Icon(
+              isFavorite ? Icons.favorite : Icons.favorite_border,
+              color: isFavorite ? AppColors.error : AppColors.textPrimary,
+            ),
+          ),
+        ],
       ),
       backgroundColor: AppColors.surface,
       body: teamState.when(
@@ -63,8 +77,49 @@ class _TeamDetailContent extends StatelessWidget {
           const SizedBox(height: 24),
           // Info del equipo
           _TeamInfoSection(team: team),
+          const SizedBox(height: 16),
+          const _KitHistoryPlaceholderSection(),
           const SizedBox(height: 24),
         ],
+      ),
+    );
+  }
+}
+
+class _KitHistoryPlaceholderSection extends StatelessWidget {
+  const _KitHistoryPlaceholderSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: AppColors.border,
+            width: 0.8,
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Historial de camisetas',
+              style: AppTextStyles.h3,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Próximamente disponible en esta sección.',
+              style: AppTextStyles.bodySmall.copyWith(
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

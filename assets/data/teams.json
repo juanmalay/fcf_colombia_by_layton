@@ -1,0 +1,49 @@
+{
+  "teams": [
+    {
+      "id": "colombia",
+      "name": "Colombia",
+      "shortName": "COL",
+      "country": "Colombia",
+      "logoUrl": "",
+      "stadium": "Estadio Metropolitano Roberto Melendez",
+      "coach": "Nestor Lorenzo"
+    },
+    {
+      "id": "argentina",
+      "name": "Argentina",
+      "shortName": "ARG",
+      "country": "Argentina",
+      "logoUrl": "",
+      "stadium": "Estadio Mas Monumental",
+      "coach": "Lionel Scaloni"
+    },
+    {
+      "id": "brasil",
+      "name": "Brasil",
+      "shortName": "BRA",
+      "country": "Brasil",
+      "logoUrl": "",
+      "stadium": "Maracana",
+      "coach": "Dorival Junior"
+    },
+    {
+      "id": "uruguay",
+      "name": "Uruguay",
+      "shortName": "URU",
+      "country": "Uruguay",
+      "logoUrl": "",
+      "stadium": "Estadio Centenario",
+      "coach": "Marcelo Bielsa"
+    },
+    {
+      "id": "ecuador",
+      "name": "Ecuador",
+      "shortName": "ECU",
+      "country": "Ecuador",
+      "logoUrl": "",
+      "stadium": "Estadio Rodrigo Paz Delgado",
+      "coach": "Felix Sanchez Bas"
+    }
+  ]
+}

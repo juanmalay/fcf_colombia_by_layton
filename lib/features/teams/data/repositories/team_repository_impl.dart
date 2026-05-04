@@ -1,43 +1,22 @@
 import '../../domain/entities/team.dart';
 import '../../domain/repositories/team_repository.dart';
+import '../datasources/teams_local_datasource.dart';
 import '../datasources/teams_remote_datasource.dart';
+import '../models/team_model.dart';
 
 /// Implementación de TeamRepository
 class TeamRepositoryImpl implements TeamRepository {
   final TeamsRemoteDataSource remoteDataSource;
+  final TeamsLocalDataSource localDataSource;
 
   // Cache en memoria
   final Map<String, Team> _teamCache = {};
   List<Team>? _allTeamsCache;
 
-  static final List<Team> _seedTeams = [
-    Team(
-      id: 'colombia',
-      name: 'Colombia',
-      shortName: 'COL',
-      country: 'Colombia',
-      stadium: 'Estadio Metropolitano Roberto Melendez',
-      coach: 'Por confirmar',
-    ),
-    Team(
-      id: 'argentina',
-      name: 'Argentina',
-      shortName: 'ARG',
-      country: 'Argentina',
-      stadium: 'Estadio Monumental',
-      coach: 'Por confirmar',
-    ),
-    Team(
-      id: 'peru',
-      name: 'Peru',
-      shortName: 'PER',
-      country: 'Peru',
-      stadium: 'Estadio Nacional',
-      coach: 'Por confirmar',
-    ),
-  ];
-
-  TeamRepositoryImpl({required this.remoteDataSource});
+  TeamRepositoryImpl({
+    required this.remoteDataSource,
+    required this.localDataSource,
+  });
 
   @override
   Future<List<Team>> getAllTeams() async {
@@ -48,6 +27,11 @@ class TeamRepositoryImpl implements TeamRepository {
       }
 
       final teams = await remoteDataSource.getAllTeams();
+
+      // Guarda en local para fallback
+      await localDataSource.saveTeams(
+        teams.map((team) => TeamModelExt.fromEntity(team)).toList(),
+      );
       
       // Guardar en cache
       _allTeamsCache = teams;
@@ -57,11 +41,14 @@ class TeamRepositoryImpl implements TeamRepository {
 
       return teams;
     } catch (e) {
-      _allTeamsCache = _seedTeams;
-      for (final team in _seedTeams) {
+      final localTeams = (await localDataSource.getTeams())
+          .map((model) => model.toEntity())
+          .toList();
+      _allTeamsCache = localTeams;
+      for (final team in localTeams) {
         _teamCache[team.id] = team;
       }
-      return _seedTeams;
+      return localTeams;
     }
   }
 
@@ -81,10 +68,13 @@ class TeamRepositoryImpl implements TeamRepository {
 
       return team;
     } catch (e) {
-      if (_allTeamsCache == null) {
-        await getAllTeams();
+      final localTeam = await localDataSource.getTeamById(id);
+      if (localTeam != null) {
+        final team = localTeam.toEntity();
+        _teamCache[id] = team;
+        return team;
       }
-      return _teamCache[id];
+      return null;
     }
   }
 
@@ -99,14 +89,11 @@ class TeamRepositoryImpl implements TeamRepository {
 
       return team;
     } catch (e) {
-      if (_allTeamsCache == null) {
-        await getAllTeams();
-      }
-      final normalized = name.toLowerCase();
-      for (final team in _allTeamsCache ?? <Team>[]) {
-        if (team.name.toLowerCase() == normalized) {
-          return team;
-        }
+      final localTeam = await localDataSource.getTeamByName(name);
+      if (localTeam != null) {
+        final team = localTeam.toEntity();
+        _teamCache[team.id] = team;
+        return team;
       }
       return null;
     }

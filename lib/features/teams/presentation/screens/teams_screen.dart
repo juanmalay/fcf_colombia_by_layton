@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../favorites/presentation/providers/favorites_providers.dart';
 import '../../domain/entities/team.dart';
 import '../providers/team_providers.dart';
 import '../widgets/team_card.dart';
@@ -13,6 +14,7 @@ class TeamsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final teamsState = ref.watch(teamsProvider);
+    final favorites = ref.watch(favoritesProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -34,7 +36,13 @@ class TeamsScreen extends ConsumerWidget {
                 message: 'No hay selecciones disponibles',
                 onRetry: () => ref.refresh(teamsProvider),
               )
-            : _TeamsListContent(teams: teams),
+            : _TeamsListContent(
+                teams: teams,
+                favorites: favorites,
+                onToggleFavorite: (favoriteId) {
+                  ref.read(favoritesProvider.notifier).toggle(favoriteId);
+                },
+              ),
       ),
     );
   }
@@ -43,10 +51,14 @@ class TeamsScreen extends ConsumerWidget {
 /// Contenido principal con lista de equipos
 class _TeamsListContent extends StatelessWidget {
   final List<Team> teams;
+  final Set<String> favorites;
+  final ValueChanged<String> onToggleFavorite;
 
   const _TeamsListContent({
     Key? key,
     required this.teams,
+    required this.favorites,
+    required this.onToggleFavorite,
   }) : super(key: key);
 
   @override
@@ -55,8 +67,11 @@ class _TeamsListContent extends StatelessWidget {
       itemCount: teams.length,
       itemBuilder: (context, index) {
         final team = teams[index];
+        final favoriteId = 'team:${team.id}';
         return TeamCard(
           team: team,
+          isFavorite: favorites.contains(favoriteId),
+          onToggleFavorite: () => onToggleFavorite(favoriteId),
           onTap: () {
             context.push('/teams/${team.id}');
           },

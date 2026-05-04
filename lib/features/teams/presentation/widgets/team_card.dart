@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/team.dart';
 import '../../../../core/design_system/app_colors.dart';
-import '../../../../core/design_system/app_spacing.dart';
 import '../../../../core/design_system/app_text_styles.dart';
 
 /// Widget para mostrar un equipo en formato card
 class TeamCard extends StatelessWidget {
   final Team team;
   final VoidCallback? onTap;
+  final bool isFavorite;
+  final VoidCallback? onToggleFavorite;
 
   const TeamCard({
     Key? key,
     required this.team,
     this.onTap,
+    this.isFavorite = false,
+    this.onToggleFavorite,
   }) : super(key: key);
 
   @override
@@ -162,10 +165,23 @@ class TeamCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
-                color: AppColors.textSecondary,
+              Column(
+                children: [
+                  IconButton(
+                    onPressed: onToggleFavorite,
+                    icon: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: isFavorite ? AppColors.error : AppColors.textSecondary,
+                      size: 20,
+                    ),
+                    tooltip: isFavorite ? 'Quitar favorito' : 'Agregar favorito',
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    size: 16,
+                    color: AppColors.textSecondary,
+                  ),
+                ],
               ),
             ],
           ),

@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/providers/app_providers.dart';
+import '../../data/datasources/teams_local_datasource.dart';
+import '../../data/datasources/teams_local_datasource_impl.dart';
 import '../../data/datasources/teams_remote_datasource.dart';
 import '../../data/datasources/teams_remote_datasource_impl.dart';
 import '../../data/repositories/team_repository_impl.dart';
@@ -14,10 +16,16 @@ final teamsRemoteDataSourceProvider = Provider<TeamsRemoteDataSource>((ref) {
   return TeamsRemoteDataSourceImpl(dioService);
 });
 
+/// Provider para TeamsLocalDataSource
+final teamsLocalDataSourceProvider = Provider<TeamsLocalDataSource>((ref) {
+  return TeamsLocalDataSourceImpl();
+});
+
 /// Provider para TeamRepository
 final teamRepositoryProvider = Provider<TeamRepository>((ref) {
   return TeamRepositoryImpl(
     remoteDataSource: ref.watch(teamsRemoteDataSourceProvider),
+    localDataSource: ref.watch(teamsLocalDataSourceProvider),
   );
 });
 
