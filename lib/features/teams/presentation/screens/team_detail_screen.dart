@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../favorites/presentation/providers/favorites_providers.dart';
 import '../../domain/entities/team.dart';
 import '../providers/team_providers.dart';
+import '../widgets/kit_history_section.dart';
 import '../../../../core/design_system/app_colors.dart';
 import '../../../../core/design_system/app_text_styles.dart';
 
@@ -78,48 +79,9 @@ class _TeamDetailContent extends StatelessWidget {
           // Info del equipo
           _TeamInfoSection(team: team),
           const SizedBox(height: 16),
-          const _KitHistoryPlaceholderSection(),
+          KitHistorySection(team: team),
           const SizedBox(height: 24),
         ],
-      ),
-    );
-  }
-}
-
-class _KitHistoryPlaceholderSection extends StatelessWidget {
-  const _KitHistoryPlaceholderSection();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: AppColors.border,
-            width: 0.8,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Historial de camisetas',
-              style: AppTextStyles.h3,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Próximamente disponible en esta sección.',
-              style: AppTextStyles.bodySmall.copyWith(
-                color: AppColors.textSecondary,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

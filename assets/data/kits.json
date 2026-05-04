@@ -1,0 +1,81 @@
+{
+  "kits": [
+    {
+      "id": "colombia-2024-home",
+      "teamId": "colombia",
+      "season": "2024",
+      "type": "home",
+      "imageUrl": "",
+      "brand": "adidas",
+      "sponsor": "FCF",
+      "description": "Camiseta principal amarilla con detalles tricolor.",
+      "tournament": "Eliminatorias CONMEBOL"
+    },
+    {
+      "id": "colombia-2024-away",
+      "teamId": "colombia",
+      "season": "2024",
+      "type": "away",
+      "imageUrl": "",
+      "brand": "adidas",
+      "sponsor": "FCF",
+      "description": "Camiseta visitante oscura para competiciones internacionales.",
+      "tournament": "Copa America"
+    },
+    {
+      "id": "colombia-2023-goalkeeper",
+      "teamId": "colombia",
+      "season": "2023",
+      "type": "goalkeeper",
+      "imageUrl": "",
+      "brand": "adidas",
+      "sponsor": "FCF",
+      "description": "Uniforme de arquero con paneles de alto contraste.",
+      "tournament": "Amistosos Internacionales"
+    },
+    {
+      "id": "argentina-2024-home",
+      "teamId": "argentina",
+      "season": "2024",
+      "type": "home",
+      "imageUrl": "",
+      "brand": "adidas",
+      "sponsor": "AFA",
+      "description": "Diseño clásico celeste y blanco para el ciclo actual.",
+      "tournament": "Copa America"
+    },
+    {
+      "id": "brasil-2024-home",
+      "teamId": "brasil",
+      "season": "2024",
+      "type": "home",
+      "imageUrl": "",
+      "brand": "Nike",
+      "sponsor": "CBF",
+      "description": "Camiseta local amarilla con vivos verdes renovados.",
+      "tournament": "Eliminatorias CONMEBOL"
+    },
+    {
+      "id": "uruguay-2024-home",
+      "teamId": "uruguay",
+      "season": "2024",
+      "type": "home",
+      "imageUrl": "",
+      "brand": "Nike",
+      "sponsor": "AUF",
+      "description": "Modelo celeste de competencia para el ciclo 2024.",
+      "tournament": "Copa America"
+    },
+    {
+      "id": "ecuador-2024-home",
+      "teamId": "ecuador",
+      "season": "2024",
+      "type": "home",
+      "imageUrl": "",
+      "brand": "Marathon",
+      "sponsor": "FEF",
+      "description": "Camiseta principal amarilla con bloques gráficos azul marino.",
+      "tournament": "Eliminatorias CONMEBOL"
+    }
+  ]
+}
