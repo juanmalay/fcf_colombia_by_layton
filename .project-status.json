@@ -1,10 +1,10 @@
 {
   "name": "fcf_colombia_by_layton",
   "status": "Desarrollo",
-  "progress": 48,
+  "progress": 54,
   "type": "Producto",
   "priority": "Alta",
-  "summary": "App Flutter multiplataforma no oficial sobre la Selección Colombia, con arquitectura por features, Riverpod, GoRouter, design system, integración HTTP con Dio y módulos principales en distintos niveles de avance. Matches es el módulo más completo en frontend y ahora tiene fallback local desde assets. Teams tiene capas principales y fallback local mínimo. Home consume datos de Matches, Explore navega a rutas reales, y Favorites/Settings tienen persistencia local. Players, Tournaments, News y Multimedia siguen como pantallas placeholder. El backend Spring Boot y PostgreSQL están documentados históricamente, pero no existen dentro de este repositorio.",
+  "summary": "App Flutter multiplataforma no oficial sobre la Selección Colombia, con arquitectura por features, Riverpod, GoRouter, design system e integración HTTP con Dio. Matches quedó cerrado funcionalmente en frontend (MVP): lista y detalle reales con providers, estados loading/error/data, favoritos y empty states de estadísticas/eventos. Teams es la siguiente prioridad de cierre funcional. Home consume datos de Matches, Explore navega a rutas reales, Favorites/Settings tienen persistencia local y Players/Tournaments/News/Multimedia continúan como placeholders. El backend Spring Boot y PostgreSQL está documentado históricamente, pero no existe en este repositorio.",
   "version": "1.0.0+1",
   "modules": [
     {
@@ -27,15 +27,15 @@
     },
     {
       "name": "Matches",
-      "status": "MVP",
-      "progress": 82,
-      "description": "Módulo con domain, data y presentation: entities, repository contract, usecases, DTOs Freezed, datasources remoto/local, repository impl, providers Riverpod, pantalla de lista, detalle y MatchCard. Consume endpoints REST mediante Dio y tiene cache local en memoria con seed desde assets/data/matches.json. El detalle puede resolverse desde fallback local si la API falla. Las tabs de estadísticas y eventos muestran estados vacíos porque el modelo actual no contiene esos datos."
+      "status": "Cierre funcional frontend",
+      "progress": 95,
+      "description": "Módulo patrón en frontend: arquitectura domain/data/presentation, providers Riverpod, MatchesScreen con datos reales y MatchDetailScreen con matchDetailProvider(matchId), estados loading/error/data, favoritos con favoritesProvider y empty states claros para estadísticas/eventos cuando no hay datos. Pendiente: limpieza técnica global de warnings/lints y fase de diseño premium final."
     },
     {
       "name": "Teams",
       "status": "Desarrollo",
       "progress": 68,
-      "description": "Módulo con entity, repository contract, usecases, DTO, remote datasource, repository impl, providers, lista, detalle y TeamCard. Tiene fallback local mínimo en memoria y las pantallas principales usan tipos Team en lugar de dynamic. Sigue sin datasource local formal ni datos completos de planteles o camisetas."
+      "description": "Siguiente prioridad de cierre funcional. Módulo con entity, repository contract, usecases, DTO, remote datasource, repository impl, providers, lista, detalle y TeamCard. Tiene fallback local mínimo en memoria y las pantallas principales usan tipos Team en lugar de dynamic. Sigue sin datasource local formal ni datos completos de planteles o camisetas."
     },
     {
       "name": "Home",
@@ -48,6 +48,30 @@
       "status": "Desarrollo",
       "progress": 45,
       "description": "ExploreScreen funciona como hub de navegación hacia Teams, Players, Tournaments, News y Multimedia. Los módulos secundarios excepto Teams siguen mayormente como placeholders."
+    },
+    {
+      "name": "Players",
+      "status": "Pendiente/Placeholder",
+      "progress": 20,
+      "description": "Pantalla existente pero sin cierre funcional completo en frontend. Mantener como pendiente en el plan."
+    },
+    {
+      "name": "Tournaments + Standings",
+      "status": "Pendiente/Placeholder",
+      "progress": 18,
+      "description": "Módulo pendiente de implementación funcional y conexión completa a datos reales."
+    },
+    {
+      "name": "News",
+      "status": "Pendiente/Placeholder",
+      "progress": 15,
+      "description": "Pantalla placeholder; integración funcional pendiente."
+    },
+    {
+      "name": "Multimedia",
+      "status": "Pendiente/Placeholder",
+      "progress": 15,
+      "description": "Pantalla placeholder; integración funcional pendiente."
     },
     {
       "name": "Favorites",

@@ -25,6 +25,15 @@ Usar **matches** como módulo patrón.
 
 ---
 
+## ✅ Estado de cierre actual
+
+- Matches: cerrado funcionalmente en frontend (MVP)
+- Siguiente prioridad: Teams
+- Pendiente transversal: limpieza técnica global (warnings/lints)
+- Diseño premium: reservado para la fase final
+
+---
+
 ## 🧩 Cómo crear un módulo
 
 ### Backend

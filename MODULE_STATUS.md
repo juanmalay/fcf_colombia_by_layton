@@ -2,12 +2,22 @@
 
 ---
 
-## 🟢 COMPLETOS
+## 🟢 CIERRE FUNCIONAL FRONTEND
 
 ### Matches
 - Backend: ❌
 - Frontend: ✅
-- Estado: módulo patrón
+- Estado: cerrado funcionalmente (MVP frontend completo)
+- Cobertura actual:
+  - MatchesScreen con providers reales
+  - MatchDetailScreen con `matchDetailProvider(matchId)`
+  - Estados loading/error/data
+  - Favoritos con `favoritesProvider`
+  - Sin placeholders principales en detalle
+  - Estadísticas/Eventos con empty states claros
+- Pendiente:
+  - Diseño premium (fase final)
+  - Limpieza técnica global (warnings/lints)
 
 ---
 
@@ -73,6 +83,7 @@
 ## 🧠 NOTAS
 
 - Matches es referencia base
+- El backend no está incluido en este repositorio
 - No iniciar módulos nuevos sin cerrar los actuales
 - Evitar placeholders innecesarios
 
@@ -80,9 +91,14 @@
 
 ## 🎯 PRIORIDAD
 
-1. Matches (cerrar)
-2. Teams (alinear)
-3. Kit History
-4. Home (real)
-5. Explore (hub)
-6. Players
+1. Teams (siguiente cierre funcional)
+2. Kit History
+3. Home (real)
+4. Explore (hub)
+5. Players
+6. Tournaments + Standings
+7. News
+8. Multimedia
+9. Favorites global
+10. Settings global
+11. Diseño premium final
