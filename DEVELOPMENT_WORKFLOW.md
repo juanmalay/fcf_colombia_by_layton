@@ -11,7 +11,7 @@ Usar **matches** como módulo patrón.
 ## 🔁 Orden de desarrollo
 
 1. Matches (base)
-2. Teams (alinear)
+2. Teams (base)
 3. Kit History
 4. Home
 5. Explore
@@ -28,7 +28,8 @@ Usar **matches** como módulo patrón.
 ## ✅ Estado de cierre actual
 
 - Matches: cerrado funcionalmente en frontend (MVP)
-- Siguiente prioridad: Teams
+- Teams: cerrado funcionalmente en frontend (MVP)
+- Siguiente prioridad: Kit History
 - Pendiente transversal: limpieza técnica global (warnings/lints)
 - Diseño premium: reservado para la fase final
 

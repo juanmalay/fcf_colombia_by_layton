@@ -7,7 +7,7 @@ App Flutter no oficial sobre la Selección Colombia de mayores.
 - Flutter multiplataforma con estructura por features.
 - Navegación principal con GoRouter y tabs persistentes.
 - Matches cerrado funcionalmente en frontend (módulo patrón): lista y detalle con providers reales, estados loading/error/data, favoritos y empty states para estadísticas/eventos.
-- Teams implementado con capas principales, API remota y fallback local mínimo.
+- Teams cerrado funcionalmente en frontend: lista y detalle con Riverpod, fallback local desde `assets/data/teams.json` y favoritos con `favoritesProvider` usando formato `team:id`.
 - Home consume datos de Matches para próximo partido y resultados recientes.
 - Explore navega a Teams, Players, Tournaments, News y Multimedia.
 - Favorites y Settings guardan preferencias locales con `shared_preferences`.
@@ -18,12 +18,12 @@ App Flutter no oficial sobre la Selección Colombia de mayores.
 
 La documentación histórica del proyecto menciona una API Spring Boot y PostgreSQL, pero este repositorio contiene solo la app Flutter. No hay carpeta `backend`, `backend_api`, `src` de backend ni configuración de base de datos en este repo.
 
-En desarrollo, la app intenta consumir endpoints configurados para entorno local. Si la API no está disponible, los módulos Matches y Teams usan datos locales mínimos como fallback.
+En desarrollo, la app intenta consumir endpoints configurados para entorno local. Si la API no está disponible, los módulos Matches y Teams usan datos locales en assets como fallback.
 
 ## Plan de cierre por pantalla
 
 1. Matches (cerrado funcionalmente frontend)
-2. Teams
+2. Teams (cerrado funcionalmente frontend)
 3. Kit History
 4. Home
 5. Explore

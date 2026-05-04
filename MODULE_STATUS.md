@@ -19,16 +19,24 @@
   - Diseño premium (fase final)
   - Limpieza técnica global (warnings/lints)
 
+### Teams
+- Backend: ❌
+- Frontend: ✅
+- Estado: cerrado funcionalmente (MVP frontend completo)
+- Cobertura actual:
+  - TeamsScreen con provider real y navegación al detalle
+  - TeamDetailScreen con provider por `teamId`
+  - Estados loading/error/empty/data
+  - Fallback local desde `assets/data/teams.json`
+  - Favoritos con `favoritesProvider` usando formato `team:id`
+  - CTA preparada para Kit History sin datos fake
+- Pendiente:
+  - Diseño premium (fase final)
+  - Limpieza técnica global (warnings/lints)
+
 ---
 
 ## 🟡 PARCIALES
-
-### Teams
-- Backend: ❌
-- Frontend: ⚠️
-- Pendiente:
-  - Alinear con Matches
-  - Limpiar arquitectura
 
 ---
 
@@ -91,14 +99,13 @@
 
 ## 🎯 PRIORIDAD
 
-1. Teams (siguiente cierre funcional)
-2. Kit History
-3. Home (real)
-4. Explore (hub)
-5. Players
-6. Tournaments + Standings
-7. News
-8. Multimedia
-9. Favorites global
-10. Settings global
-11. Diseño premium final
+1. Kit History
+2. Home (real)
+3. Explore (hub)
+4. Players
+5. Tournaments + Standings
+6. News
+7. Multimedia
+8. Favorites global
+9. Settings global
+10. Diseño premium final
