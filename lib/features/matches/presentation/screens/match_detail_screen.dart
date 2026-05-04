@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fcf_colombia_by_layton/features/matches/presentation/providers/match_providers.dart';
-import 'package:fcf_colombia_by_layton/features/matches/domain/entities/match.dart';
 import 'package:fcf_colombia_by_layton/features/favorites/presentation/providers/favorites_providers.dart';
 
 class MatchDetailScreen extends ConsumerWidget {
@@ -45,7 +44,7 @@ class MatchDetailScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListTile(
-                  title: Text('${match.homeTeam} vs ${match.awayTeam}'),
+                  title: Text('${match.homeTeam.name} vs ${match.awayTeam.name}'),
                   subtitle: Text('${match.tournament} - ${match.matchDate}'),
                   trailing: IconButton(
                     icon: Icon(
@@ -87,12 +86,12 @@ class MatchDetailScreen extends ConsumerWidget {
                             match.statistics?.isEmpty ?? true
                                 ? const Center(child: Text('Estadísticas no disponibles'))
                                 : Column(
-                                  children: match.statistics!.map((stat) => Text(stat.toString())).toList(),
+                                  children: match.statistics!.map((stat) => Text('${stat.name}: ${stat.value}')).toList(),
                                 ),
                             match.events?.isEmpty ?? true
                                 ? const Center(child: Text('Eventos no disponibles'))
                                 : Column(
-                                  children: match.events!.map((event) => Text(event.toString())).toList(),
+                                  children: match.events!.map((event) => Text('${event.time} - ${event.description}')).toList(),
                                 ),
                           ],
                         ),
