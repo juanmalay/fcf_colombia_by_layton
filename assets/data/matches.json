@@ -1,29 +1,30 @@
 {
   "nextMatches": [
     {
-      "id": 1,
+      "id": "1",
       "homeTeam": "Colombia",
-      "homeCode": "co",
       "awayTeam": "Argentina",
-      "awayCode": "ar",
-      "date": "2025-03-21",
-      "time": "18:00",
-      "stadium": "MetLife Stadium",
-      "tournament": "Eliminatorias 2026"
+      "homeScore": null,
+      "awayScore": null,
+      "matchDate": "2026-06-11T18:00:00.000",
+      "tournament": "Eliminatorias 2026",
+      "status": "upcoming",
+      "venue": "MetLife Stadium",
+      "referee": "Por confirmar"
     }
   ],
   "results": [
     {
-      "id": 2,
+      "id": "2",
       "homeTeam": "Colombia",
-      "homeCode": "co",
-      "awayTeam": "Perú",
-      "awayCode": "pe",
+      "awayTeam": "Peru",
       "homeScore": 3,
       "awayScore": 1,
-      "date": "2024-12-07",
+      "matchDate": "2024-12-07T19:00:00.000",
       "tournament": "Amistoso Internacional",
-      "stadium": "Hard Rock Stadium"
+      "status": "finished",
+      "venue": "Hard Rock Stadium",
+      "referee": "Por confirmar"
     }
   ]
 }

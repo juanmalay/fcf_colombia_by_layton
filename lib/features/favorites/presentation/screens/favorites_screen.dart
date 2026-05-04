@@ -3,8 +3,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/design_system/app_colors.dart';
 import '../../../../core/design_system/app_spacing.dart';
 import '../../../../core/design_system/app_text_styles.dart';
+import '../providers/favorites_providers.dart';
 
-/// Pantalla de favoritos (partidos, jugadores, noticias guardadas)
+class FavoriteCandidate {
+  final String id;
+  final String title;
+  final String subtitle;
+
+  const FavoriteCandidate(this.id, this.title, this.subtitle);
+}
+
+const _matchFavorites = [
+  FavoriteCandidate('match-1', 'Colombia vs Argentina', 'Eliminatorias 2026'),
+  FavoriteCandidate('match-2', 'Colombia vs Peru', 'Amistoso Internacional'),
+];
+
+const _playerFavorites = [
+  FavoriteCandidate('player-1', 'James Rodriguez', 'Mediocampista'),
+  FavoriteCandidate('player-2', 'Radamel Falcao', 'Delantero'),
+];
+
+const _newsFavorites = [
+  FavoriteCandidate('news-1', 'Novedades de la seleccion', 'Comunicado'),
+  FavoriteCandidate('news-2', 'Analisis de partidos', 'Reporte tecnico'),
+];
+
+/// Pantalla de favoritos con persistencia local.
 class FavoritesScreen extends ConsumerWidget {
   const FavoritesScreen({Key? key}) : super(key: key);
 
@@ -15,31 +39,26 @@ class FavoritesScreen extends ConsumerWidget {
         title: const Text('Mis Favoritos'),
         centerTitle: true,
       ),
-      body: DefaultTabController(
+      body: const DefaultTabController(
         length: 3,
         child: Column(
           children: [
-            // Tabs
             TabBar(
               indicatorColor: AppColors.accent,
               indicatorWeight: 3,
               labelStyle: AppTextStyles.label,
-              tabs: const [
+              tabs: [
                 Tab(text: 'Partidos'),
                 Tab(text: 'Jugadores'),
                 Tab(text: 'Noticias'),
               ],
             ),
-            // Tab Content
             Expanded(
               child: TabBarView(
                 children: [
-                  // Matches Tab
-                  _FavoritesTab(title: 'Partidos favoritos'),
-                  // Players Tab
-                  _FavoritesTab(title: 'Jugadores favoritos'),
-                  // News Tab
-                  _FavoritesTab(title: 'Noticias guardadas'),
+                  _FavoritesTab(items: _matchFavorites),
+                  _FavoritesTab(items: _playerFavorites),
+                  _FavoritesTab(items: _newsFavorites),
                 ],
               ),
             ),
@@ -50,48 +69,52 @@ class FavoritesScreen extends ConsumerWidget {
   }
 }
 
-class _FavoritesTab extends StatelessWidget {
-  final String title;
+class _FavoritesTab extends ConsumerWidget {
+  final List<FavoriteCandidate> items;
 
-  const _FavoritesTab({required this.title});
+  const _FavoritesTab({required this.items});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final favorites = ref.watch(favoritesProvider);
+
     return ListView.builder(
       padding: const EdgeInsets.all(AppSpacing.md),
-      itemCount: 4,
+      itemCount: items.length,
       itemBuilder: (context, index) {
+        final item = items[index];
+        final isFavorite = favorites.contains(item.id);
+
         return Container(
           margin: const EdgeInsets.only(bottom: AppSpacing.md),
           padding: const EdgeInsets.all(AppSpacing.md),
           decoration: BoxDecoration(
-          color: AppColors.accent.withValues(alpha: 0.15),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColors.accent.withValues(alpha: 0.5)),
+            color: AppColors.accent.withValues(alpha: isFavorite ? 0.15 : 0.05),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: AppColors.accent.withValues(alpha: isFavorite ? 0.5 : 0.2),
+            ),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Elemento $title ${index + 1}',
-                      style: AppTextStyles.h3,
-                    ),
+                    Text(item.title, style: AppTextStyles.h3),
                     const SizedBox(height: AppSpacing.sm),
-                    Text(
-                      'Guardado recientemente',
-                      style: AppTextStyles.caption,
-                    ),
+                    Text(item.subtitle, style: AppTextStyles.caption),
                   ],
                 ),
               ),
-              Icon(
-                Icons.favorite,
-                color: AppColors.accent,
-                size: 24,
+              IconButton(
+                onPressed: () {
+                  ref.read(favoritesProvider.notifier).toggle(item.id);
+                },
+                icon: Icon(
+                  isFavorite ? Icons.favorite : Icons.favorite_border,
+                  color: AppColors.accent,
+                ),
               ),
             ],
           ),

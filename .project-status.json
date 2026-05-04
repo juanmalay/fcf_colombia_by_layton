@@ -1,0 +1,136 @@
+{
+  "name": "fcf_colombia_by_layton",
+  "status": "Desarrollo",
+  "progress": 48,
+  "type": "Producto",
+  "priority": "Alta",
+  "summary": "App Flutter multiplataforma no oficial sobre la Seleccion Colombia, con arquitectura por features, Riverpod, GoRouter, design system, integracion HTTP con Dio y modulos principales en distintos niveles de avance. Matches es el modulo mas completo en frontend y ahora tiene fallback local desde assets. Teams tiene capas principales y fallback local minimo. Home consume datos de Matches, Explore navega a rutas reales, y Favorites/Settings tienen persistencia local. Players, Tournaments, News y Multimedia siguen como pantallas placeholder. El backend Spring Boot y PostgreSQL estan documentados historicamente, pero no existen dentro de este repositorio.",
+  "version": "1.0.0+1",
+  "modules": [
+    {
+      "name": "Infraestructura Flutter y configuracion",
+      "status": "Desarrollo",
+      "progress": 82,
+      "description": "Proyecto Flutter con targets android, ios, web, linux, macos y windows; pubspec con version 1.0.0+1 y dependencias Riverpod, GoRouter, Dio, Freezed, json_serializable, shared_preferences, intl y shimmer; analysis_options configurado. No se detectan tests de aplicacion bajo test/."
+    },
+    {
+      "name": "Core y design system",
+      "status": "Desarrollo",
+      "progress": 75,
+      "description": "Existen colores, tipografias, spacing, theme, modelos Result/AppException, logger, DioService, providers globales, extensiones y widgets de navegacion. Hay archivos legacy en core/widgets y core/network documentados como no usados o reemplazados."
+    },
+    {
+      "name": "Navegacion",
+      "status": "Desarrollo",
+      "progress": 78,
+      "description": "GoRouter activo en lib/app/router/app_router.dart con ShellRoute y tabs para Home, Matches, Teams, Explore, Favorites y Settings, rutas de detalle para Matches y Teams, y rutas activas para Players, Tournaments, News y Multimedia asociadas al tab Explore. lib/app_router.dart quedo como export de compatibilidad hacia el router canonico."
+    },
+    {
+      "name": "Matches",
+      "status": "MVP",
+      "progress": 82,
+      "description": "Modulo con domain, data y presentation: entities, repository contract, usecases, DTOs Freezed, datasources remoto/local, repository impl, providers Riverpod, pantalla de lista, detalle y MatchCard. Consume endpoints REST mediante Dio y tiene cache local en memoria con seed desde assets/data/matches.json. El detalle puede resolverse desde fallback local si la API falla. Las tabs de estadisticas y eventos muestran estados vacios porque el modelo actual no contiene esos datos."
+    },
+    {
+      "name": "Teams",
+      "status": "Desarrollo",
+      "progress": 68,
+      "description": "Modulo con entity, repository contract, usecases, DTO, remote datasource, repository impl, providers, lista, detalle y TeamCard. Tiene fallback local minimo en memoria y las pantallas principales usan tipos Team en lugar de dynamic. Sigue sin datasource local formal ni datos completos de planteles o camisetas."
+    },
+    {
+      "name": "Home",
+      "status": "Desarrollo",
+      "progress": 45,
+      "description": "HomeScreen consume upcomingMatchesProvider y recentMatchesProvider para mostrar proximo partido y resultados recientes. Noticias sigue pendiente de integracion real."
+    },
+    {
+      "name": "Explore",
+      "status": "Desarrollo",
+      "progress": 45,
+      "description": "ExploreScreen funciona como hub de navegacion hacia Teams, Players, Tournaments, News y Multimedia. Los modulos secundarios excepto Teams siguen mayormente como placeholders."
+    },
+    {
+      "name": "Favorites",
+      "status": "Desarrollo",
+      "progress": 40,
+      "description": "FavoritesScreen tiene tabs para partidos, jugadores y noticias, toggles de favoritos y persistencia local con shared_preferences. Aun usa candidatos fijos y no esta conectado a entidades reales ni Kit History."
+    },
+    {
+      "name": "Settings",
+      "status": "Desarrollo",
+      "progress": 45,
+      "description": "SettingsScreen tiene switches de preferencias y persistencia local con shared_preferences. Las preferencias aun no modifican comportamiento global de la app."
+    },
+    {
+      "name": "Players",
+      "status": "Idea",
+      "progress": 5,
+      "description": "Existe PlayersScreen como placeholder con texto estatico. No se detectan capas domain/data, providers, modelos, rutas activas en el router usado ni detalle de jugador."
+    },
+    {
+      "name": "Tournaments",
+      "status": "Idea",
+      "progress": 5,
+      "description": "Existe TournamentsScreen como placeholder con texto estatico. No se detectan capas domain/data, providers, modelos ni funcionalidad de standings o detalle."
+    },
+    {
+      "name": "News",
+      "status": "Idea",
+      "progress": 5,
+      "description": "Existe NewsScreen como placeholder con texto estatico. No se detectan feed real, modelo, datasource, provider, detalle de noticia ni integracion editorial."
+    },
+    {
+      "name": "Multimedia",
+      "status": "Idea",
+      "progress": 5,
+      "description": "Existe MultimediaScreen como placeholder con texto estatico. No se detectan galerias, visor, modelos, providers ni datasource."
+    },
+    {
+      "name": "Backend Spring Boot y PostgreSQL",
+      "status": "Idea",
+      "progress": 0,
+      "description": "README y documentos describen una API Spring Boot y PostgreSQL con modulos matches y teams, pero no existen carpetas backend, backend_api, apps ni src de backend dentro de este repositorio."
+    },
+    {
+      "name": "Kit History",
+      "status": "Idea",
+      "progress": 0,
+      "description": "La documentacion lo define como nueva feature dentro de Teams, con entidad Kit, timeline/cards, integracion en TeamDetail y favoritos. No se detecta implementacion en lib/features."
+    },
+    {
+      "name": "Datos locales",
+      "status": "Desarrollo",
+      "progress": 20,
+      "description": "Existe assets/data/matches.json y el pubspec registra assets/data. El modulo Matches actual esta orientado a API remota y cache en memoria; no se detectan datasets locales para teams, players, tournaments, news o multimedia."
+    },
+    {
+      "name": "Documentacion del proyecto",
+      "status": "Desarrollo",
+      "progress": 65,
+      "description": "Existen README.md, DEVELOPMENT_WORKFLOW.md, MODULE_STATUS.md, SYSTEM_ARCHITECTURE.md y docs bajo lib/docs con arquitectura, guias y estado. Hay inconsistencias entre vision documentada, rutas antiguas y codigo real."
+    }
+  ],
+  "missing": [
+    "Carpeta backend, backend_api, apps o src de backend no encontrada pese a estar documentada.",
+    "Tests de aplicacion no detectados bajo test/.",
+    "Persistencia offline completa y cache persistente para datos de negocio.",
+    "Implementacion funcional de Players, Tournaments, News, Multimedia, Standings, Users y Kit History.",
+    "Datasets locales completos o backend disponible dentro del repo para ejecutar la app end-to-end.",
+    "Contenido real para tabs de resumen, estadisticas y eventos en MatchDetailScreen."
+  ],
+  "risks": [
+    "README y documentacion afirman backend Spring Boot y PostgreSQL, pero el codigo del backend no esta en este repositorio.",
+    "La app depende de endpoints localhost o IP local; si el backend no esta levantado, Matches y Teams usan fallbacks locales minimos que no cubren todos los casos.",
+    "Algunos archivos usan APIs legacy como withOpacity mientras otros ya migraron a withValues.",
+    "La documentacion contiene estados optimistas frente al codigo actual, por ejemplo backend conectado o base production-ready, que no se puede validar solo con este repo.",
+    "No hay evidencia de cobertura automatizada para validar modulos, navegacion o integracion HTTP."
+  ],
+  "nextSteps": [
+    "Agregar o enlazar el backend referenciado si debe formar parte del producto end-to-end.",
+    "Cerrar Matches: modelar estadisticas/eventos reales, validar endpoints y agregar tests de providers/usecases/repository.",
+    "Completar Teams con datasource local formal, datos de plantilla/camisetas y pruebas.",
+    "Conectar Favorites a entidades reales en lugar de candidatos fijos.",
+    "Aplicar las preferencias de Settings al comportamiento global de la app.",
+    "Crear una carpeta test/ con pruebas unitarias y de widgets para los flujos principales."
+  ]
+}

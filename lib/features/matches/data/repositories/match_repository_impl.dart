@@ -2,7 +2,6 @@ import '../../domain/entities/match.dart';
 import '../../domain/repositories/match_repository.dart';
 import '../datasources/matches_local_datasource.dart';
 import '../datasources/matches_remote_datasource.dart';
-import '../models/match_model.dart';
 import '../../../../core/utils/logger.dart';
 
 /// Implementación del repositorio de partidos
@@ -78,6 +77,17 @@ class MatchRepositoryImpl implements MatchRepository {
       return remoteMatch?.toEntity();
     } catch (e) {
       AppLogger.error('Error obteniendo detalle de partido', e);
+      final cachedMatches = [
+        ...await localDataSource.getMatches(_upcomingCacheKey),
+        ...await localDataSource.getMatches(_recentCacheKey),
+      ];
+
+      for (final match in cachedMatches) {
+        if (match.id == id) {
+          return match.toEntity();
+        }
+      }
+
       return null;
     }
   }

@@ -10,6 +10,33 @@ class TeamRepositoryImpl implements TeamRepository {
   final Map<String, Team> _teamCache = {};
   List<Team>? _allTeamsCache;
 
+  static final List<Team> _seedTeams = [
+    Team(
+      id: 'colombia',
+      name: 'Colombia',
+      shortName: 'COL',
+      country: 'Colombia',
+      stadium: 'Estadio Metropolitano Roberto Melendez',
+      coach: 'Por confirmar',
+    ),
+    Team(
+      id: 'argentina',
+      name: 'Argentina',
+      shortName: 'ARG',
+      country: 'Argentina',
+      stadium: 'Estadio Monumental',
+      coach: 'Por confirmar',
+    ),
+    Team(
+      id: 'peru',
+      name: 'Peru',
+      shortName: 'PER',
+      country: 'Peru',
+      stadium: 'Estadio Nacional',
+      coach: 'Por confirmar',
+    ),
+  ];
+
   TeamRepositoryImpl({required this.remoteDataSource});
 
   @override
@@ -30,7 +57,11 @@ class TeamRepositoryImpl implements TeamRepository {
 
       return teams;
     } catch (e) {
-      rethrow;
+      _allTeamsCache = _seedTeams;
+      for (final team in _seedTeams) {
+        _teamCache[team.id] = team;
+      }
+      return _seedTeams;
     }
   }
 
@@ -50,7 +81,10 @@ class TeamRepositoryImpl implements TeamRepository {
 
       return team;
     } catch (e) {
-      rethrow;
+      if (_allTeamsCache == null) {
+        await getAllTeams();
+      }
+      return _teamCache[id];
     }
   }
 
@@ -65,7 +99,16 @@ class TeamRepositoryImpl implements TeamRepository {
 
       return team;
     } catch (e) {
-      rethrow;
+      if (_allTeamsCache == null) {
+        await getAllTeams();
+      }
+      final normalized = name.toLowerCase();
+      for (final team in _allTeamsCache ?? <Team>[]) {
+        if (team.name.toLowerCase() == normalized) {
+          return team;
+        }
+      }
+      return null;
     }
   }
 }

@@ -516,7 +516,7 @@ class _ResumenTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _PlaceholderTabContent(
+    return _DetailListContent(
       icon: Icons.summarize_outlined,
       title: 'Resumen del Partido',
       description: 'Descripción de los eventos principales del partido',
@@ -532,7 +532,7 @@ class _EstadisticasTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _PlaceholderTabContent(
+    return _DetailListContent(
       icon: Icons.bar_chart_outlined,
       title: 'Estadísticas',
       description: 'Posesión, tiros, faltas y más estadísticas del partido',
@@ -548,7 +548,7 @@ class _EventosTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _PlaceholderTabContent(
+    return _DetailListContent(
       icon: Icons.event_note_outlined,
       title: 'Eventos',
       description: 'Goles, tarjetas y eventos importantes del partido',
@@ -557,12 +557,12 @@ class _EventosTab extends StatelessWidget {
 }
 
 /// Placeholder elegante para contenido vacío en tabs
-class _PlaceholderTabContent extends StatelessWidget {
+class _DetailListContent extends StatelessWidget {
   final IconData icon;
   final String title;
   final String description;
 
-  const _PlaceholderTabContent({
+  const _DetailListContent({
     required this.icon,
     required this.title,
     required this.description,

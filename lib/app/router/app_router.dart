@@ -7,6 +7,10 @@ import '../../features/matches/presentation/screens/match_detail_screen.dart';
 import '../../features/teams/presentation/screens/teams_screen.dart';
 import '../../features/teams/presentation/screens/team_detail_screen.dart';
 import '../../features/explore/presentation/screens/explore_screen.dart';
+import '../../features/players/presentation/screens/players_screen.dart';
+import '../../features/tournaments/presentation/screens/tournaments_screen.dart';
+import '../../features/news/presentation/screens/news_screen.dart';
+import '../../features/multimedia/presentation/screens/multimedia_screen.dart';
 import '../../features/favorites/presentation/screens/favorites_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
 
@@ -82,6 +86,28 @@ class AppRouter {
             builder: (context, state) => const ExploreScreen(),
           ),
 
+          // EXPLORE CHILD DESTINATIONS
+          GoRoute(
+            path: '/players',
+            name: 'players',
+            builder: (context, state) => const PlayersScreen(),
+          ),
+          GoRoute(
+            path: '/tournaments',
+            name: 'tournaments',
+            builder: (context, state) => const TournamentsScreen(),
+          ),
+          GoRoute(
+            path: '/news',
+            name: 'news',
+            builder: (context, state) => const NewsScreen(),
+          ),
+          GoRoute(
+            path: '/multimedia',
+            name: 'multimedia',
+            builder: (context, state) => const MultimediaScreen(),
+          ),
+
           // TAB 5: FAVORITES
           GoRoute(
             path: '/favorites',
@@ -106,6 +132,10 @@ class AppRouter {
     if (path.contains('/matches')) return MainTab.matches;
     if (path.contains('/teams')) return MainTab.teams;
     if (path.contains('/explore')) return MainTab.explore;
+    if (path.contains('/players')) return MainTab.explore;
+    if (path.contains('/tournaments')) return MainTab.explore;
+    if (path.contains('/news')) return MainTab.explore;
+    if (path.contains('/multimedia')) return MainTab.explore;
     if (path.contains('/favorites')) return MainTab.favorites;
     if (path.contains('/settings')) return MainTab.settings;
     return MainTab.home;

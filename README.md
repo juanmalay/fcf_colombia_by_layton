@@ -1,56 +1,34 @@
-# ⚽ FCF Colombia
+# FCF Colombia
 
-Plataforma completa de fútbol colombiano y sudamericano.
+App Flutter no oficial sobre la Seleccion Colombia de mayores.
 
-Incluye:
-- 📱 App Flutter (Frontend)
-- ⚙️ API Spring Boot (Backend)
-- 🗄️ PostgreSQL
+## Estado actual
 
----
+- Flutter multiplataforma con estructura por features.
+- Navegacion principal con GoRouter y tabs persistentes.
+- Matches implementado con capas domain/data/presentation, API remota y fallback local desde `assets/data/matches.json`.
+- Teams implementado con capas principales, API remota y fallback local minimo.
+- Home consume datos de Matches para proximo partido y resultados recientes.
+- Explore navega a Teams, Players, Tournaments, News y Multimedia.
+- Favorites y Settings guardan preferencias locales con `shared_preferences`.
+- Players, Tournaments, News y Multimedia siguen como pantallas placeholder.
 
-## 🚀 Cómo ejecutar
+## Backend
 
-### Backend
+La documentacion historica del proyecto menciona una API Spring Boot y PostgreSQL, pero este repositorio contiene solo la app Flutter. No hay carpeta `backend`, `backend_api`, `src` de backend ni configuracion de base de datos en este repo.
+
+En desarrollo, la app intenta consumir endpoints configurados para entorno local. Si la API no esta disponible, los modulos Matches y Teams usan datos locales minimos como fallback.
+
+## Como ejecutar
 
 ```bash
-cd backend_api
-mvn clean package -DskipTests
-java -jar target/fcf-colombia-backend-1.0.0.jar
-
-Servidor:
-
-http://localhost:8080/api/v1
-
-
-Flutter
-
-cd fcf_colombia_by_layton
 flutter pub get
 flutter run
+```
 
-🧱 Estructura
+## Documentacion
 
-workspace/
-├── fcf_colombia_by_layton/   # Flutter
-└── backend_api/              # Spring Boot
-
-📊 Estado actual
-
-✅ Matches (frontend + backend)
-⚠️ Teams (requiere alineación frontend)
-⚠️ Home / Explore (en refactor)
-⏳ Players / Tournaments / News (pendientes)
-
-## ✨ Features
-
-- Matches, teams, players, tournaments
-- Favorites system
-- 🔥 Kit history by team (football jerseys timeline)
-- 🔥 Personal collection of favorite kits
-
-📘 Documentación
-
-SYSTEM_ARCHITECTURE.md → arquitectura completa
-DEVELOPMENT_WORKFLOW.md → reglas de desarrollo
-MODULE_STATUS.md → estado de módulos
+- `SYSTEM_ARCHITECTURE.md`: vision de arquitectura.
+- `DEVELOPMENT_WORKFLOW.md`: reglas de desarrollo.
+- `MODULE_STATUS.md`: estado historico de modulos.
+- `.project-status.json`: estado calculado del proyecto segun el repo actual.

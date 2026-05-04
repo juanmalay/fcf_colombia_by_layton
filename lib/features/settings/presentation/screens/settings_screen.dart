@@ -3,104 +3,83 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/design_system/app_colors.dart';
 import '../../../../core/design_system/app_spacing.dart';
 import '../../../../core/design_system/app_text_styles.dart';
+import '../providers/settings_providers.dart';
 
-/// Pantalla de configuración
+/// Pantalla de configuracion con preferencias persistidas localmente.
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(settingsProvider);
+    final notifier = ref.read(settingsProvider.notifier);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Configuración'),
+        title: const Text('Configuracion'),
         centerTitle: true,
       ),
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.md),
         children: [
-          // Notificaciones Section
           _SettingsSection(
             title: 'Notificaciones',
             children: [
-              _SettingsTile(
+              _SwitchTile(
                 title: 'Notificaciones de partidos',
                 subtitle: 'Recibe alertas de partidos programados',
+                value: settings['match_notifications'] ?? true,
+                onChanged: (value) =>
+                    notifier.setValue('match_notifications', value),
               ),
-              _SettingsTile(
+              _SwitchTile(
                 title: 'Notificaciones de goles',
                 subtitle: 'Alertas en tiempo real de goles',
+                value: settings['goal_notifications'] ?? true,
+                onChanged: (value) =>
+                    notifier.setValue('goal_notifications', value),
               ),
-              _SettingsTile(
+              _SwitchTile(
                 title: 'Notificaciones de noticias',
                 subtitle: 'Actualizaciones del equipo nacional',
+                value: settings['news_notifications'] ?? false,
+                onChanged: (value) =>
+                    notifier.setValue('news_notifications', value),
               ),
             ],
           ),
           const SizedBox(height: AppSpacing.lg),
-          
-          // Cuenta Section
           _SettingsSection(
-            title: 'Cuenta y Sincronización',
+            title: 'Cuenta y sincronizacion',
             children: [
-              _SettingsTile(
+              _SwitchTile(
                 title: 'Sincronizar datos',
                 subtitle: 'Sincroniza tus favoritos entre dispositivos',
-              ),
-              _SettingsTile(
-                title: 'Historial',
-                subtitle: 'Gestiona tu historial de visualización',
+                value: settings['sync_data'] ?? false,
+                onChanged: (value) => notifier.setValue('sync_data', value),
               ),
             ],
           ),
           const SizedBox(height: AppSpacing.lg),
-          
-          // Apariencia Section
           _SettingsSection(
             title: 'Apariencia',
             children: [
-              _SettingsTile(
+              _SwitchTile(
                 title: 'Tema oscuro',
-                subtitle: 'Tema actual: Oscuro',
-              ),
-              _SettingsTile(
-                title: 'Tamaño de fuente',
-                subtitle: 'Tamaño: Estándar',
+                subtitle: 'Preferencia guardada localmente',
+                value: settings['dark_theme'] ?? true,
+                onChanged: (value) => notifier.setValue('dark_theme', value),
               ),
             ],
           ),
           const SizedBox(height: AppSpacing.lg),
-          
-          // Información Section
           _SettingsSection(
-            title: 'Información',
-            children: [
-              _SettingsTile(
-                title: 'Versión de la aplicación',
-                subtitle: 'v1.0.0',
-              ),
-              _SettingsTile(
-                title: 'Acerca de',
-                subtitle: 'Información de la app',
-              ),
-              _SettingsTile(
-                title: 'Privacidad',
-                subtitle: 'Política de privacidad',
-              ),
+            title: 'Informacion',
+            children: const [
+              _InfoTile(title: 'Version de la aplicacion', subtitle: '1.0.0'),
+              _InfoTile(title: 'Acerca de', subtitle: 'FCF Colombia no oficial'),
             ],
           ),
-          const SizedBox(height: AppSpacing.lg),
-          
-          // Logout Button
-          ElevatedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.logout),
-            label: const Text('Cerrar sesión'),
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.all(AppSpacing.md),
-              backgroundColor: AppColors.error,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.lg),
         ],
       ),
     );
@@ -132,14 +111,55 @@ class _SettingsSection extends StatelessWidget {
   }
 }
 
-class _SettingsTile extends StatelessWidget {
+class _SwitchTile extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  const _SwitchTile({
+    required this.title,
+    required this.subtitle,
+    required this.value,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return _TileShell(
+      child: Row(
+        children: [
+          Expanded(
+            child: _TileText(title: title, subtitle: subtitle),
+          ),
+          Switch(value: value, onChanged: onChanged),
+        ],
+      ),
+    );
+  }
+}
+
+class _InfoTile extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  const _SettingsTile({
+  const _InfoTile({
     required this.title,
     required this.subtitle,
   });
+
+  @override
+  Widget build(BuildContext context) {
+    return _TileShell(
+      child: _TileText(title: title, subtitle: subtitle),
+    );
+  }
+}
+
+class _TileShell extends StatelessWidget {
+  final Widget child;
+
+  const _TileShell({required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -151,26 +171,29 @@ class _SettingsTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.border),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: AppTextStyles.label),
-                const SizedBox(height: AppSpacing.xs),
-                Text(subtitle, style: AppTextStyles.caption),
-              ],
-            ),
-          ),
-          Icon(
-            Icons.arrow_forward_ios,
-            color: AppColors.textSecondary,
-            size: 16,
-          ),
-        ],
-      ),
+      child: child,
+    );
+  }
+}
+
+class _TileText extends StatelessWidget {
+  final String title;
+  final String subtitle;
+
+  const _TileText({
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: AppTextStyles.label),
+        const SizedBox(height: AppSpacing.xs),
+        Text(subtitle, style: AppTextStyles.caption),
+      ],
     );
   }
 }

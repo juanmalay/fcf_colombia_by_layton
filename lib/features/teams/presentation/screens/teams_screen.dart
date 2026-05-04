@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../domain/entities/team.dart';
 import '../providers/team_providers.dart';
 import '../widgets/team_card.dart';
 import '../../../../core/design_system/app_colors.dart';
@@ -41,7 +42,7 @@ class TeamsScreen extends ConsumerWidget {
 
 /// Contenido principal con lista de equipos
 class _TeamsListContent extends StatelessWidget {
-  final List<dynamic> teams;
+  final List<Team> teams;
 
   const _TeamsListContent({
     Key? key,

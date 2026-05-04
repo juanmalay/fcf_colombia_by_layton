@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../domain/entities/team.dart';
 import '../providers/team_providers.dart';
 import '../../../../core/design_system/app_colors.dart';
 import '../../../../core/design_system/app_text_styles.dart';
@@ -45,7 +46,7 @@ class TeamDetailScreen extends ConsumerWidget {
 
 /// Contenido principal del detalle
 class _TeamDetailContent extends StatelessWidget {
-  final dynamic team;
+  final Team team;
 
   const _TeamDetailContent({
     Key? key,
@@ -71,7 +72,7 @@ class _TeamDetailContent extends StatelessWidget {
 
 /// Header del equipo con logo
 class _TeamHeaderHero extends StatelessWidget {
-  final dynamic team;
+  final Team team;
 
   const _TeamHeaderHero({
     Key? key,
@@ -80,6 +81,8 @@ class _TeamHeaderHero extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final logoUrl = team.logoUrl;
+
     return Container(
       width: double.infinity,
       color: AppColors.surface,
@@ -87,7 +90,7 @@ class _TeamHeaderHero extends StatelessWidget {
       child: Column(
         children: [
           // Logo
-          if (team.logoUrl != null && team.logoUrl.isNotEmpty)
+          if (logoUrl != null && logoUrl.isNotEmpty)
             Container(
               width: 120,
               height: 120,
@@ -100,7 +103,7 @@ class _TeamHeaderHero extends StatelessWidget {
                 ),
               ),
               child: Image.network(
-                team.logoUrl,
+                logoUrl,
                 fit: BoxFit.contain,
                 errorBuilder: (context, error, stackTrace) {
                   return Center(
@@ -182,7 +185,7 @@ class _TeamHeaderHero extends StatelessWidget {
 
 /// Sección de información del equipo
 class _TeamInfoSection extends StatelessWidget {
-  final dynamic team;
+  final Team team;
 
   const _TeamInfoSection({
     Key? key,
@@ -191,6 +194,9 @@ class _TeamInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stadium = team.stadium;
+    final coach = team.coach;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Container(
@@ -212,20 +218,20 @@ class _TeamInfoSection extends StatelessWidget {
         child: Column(
           children: [
             // Estadio
-            if (team.stadium != null && team.stadium.isNotEmpty)
+            if (stadium != null && stadium.isNotEmpty)
               _InfoItem(
                 icon: Icons.stadium,
                 label: 'Estadio',
-                value: team.stadium,
+                value: stadium,
                 isFirst: true,
               ),
             // Entrenador
-            if (team.coach != null && team.coach.isNotEmpty)
+            if (coach != null && coach.isNotEmpty)
               _InfoItem(
                 icon: Icons.person,
                 label: 'Entrenador',
-                value: team.coach,
-                isFirst: team.stadium == null,
+                value: coach,
+                isFirst: stadium == null || stadium.isEmpty,
               ),
           ],
         ),
