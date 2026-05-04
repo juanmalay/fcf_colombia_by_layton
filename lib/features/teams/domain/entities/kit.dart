@@ -43,4 +43,8 @@ class Kit {
     required this.description,
     required this.tournament,
   });
+
+  String get typeLabel => type.toDisplayString();
+
+  String get title => '$season · $typeLabel';
 }

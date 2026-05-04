@@ -37,6 +37,20 @@ class KitModel {
     );
   }
 
+  factory KitModel.fromEntity(Kit kit) {
+    return KitModel(
+      id: kit.id,
+      teamId: kit.teamId,
+      season: kit.season,
+      type: kit.type.name,
+      imageUrl: kit.imageUrl,
+      brand: kit.brand,
+      sponsor: kit.sponsor,
+      description: kit.description,
+      tournament: kit.tournament,
+    );
+  }
+
   Kit toEntity() {
     return Kit(
       id: id,

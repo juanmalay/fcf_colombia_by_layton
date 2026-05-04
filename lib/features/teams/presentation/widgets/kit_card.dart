@@ -60,7 +60,7 @@ class KitCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          '${kit.season} · ${kit.type.toDisplayString()}',
+                          kit.title,
                           style: AppTextStyles.h3.copyWith(
                             fontWeight: FontWeight.w700,
                           ),
@@ -86,6 +86,8 @@ class KitCard extends StatelessWidget {
                     style: AppTextStyles.body.copyWith(
                       color: AppColors.textPrimary,
                     ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 10),
                   Wrap(
@@ -150,7 +152,7 @@ class _KitImageFallback extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           Text(
-            kit.type.toDisplayString(),
+            kit.typeLabel,
             style: AppTextStyles.label.copyWith(color: AppColors.primary),
             textAlign: TextAlign.center,
           ),

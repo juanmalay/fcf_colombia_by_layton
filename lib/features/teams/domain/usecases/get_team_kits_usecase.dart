@@ -7,6 +7,6 @@ class GetTeamKitsUseCase {
   GetTeamKitsUseCase(this.repository);
 
   Future<List<Kit>> call(String teamId) async {
-    return repository.getTeamKits(teamId);
+    return repository.getKitsByTeamId(teamId);
   }
 }

@@ -11,7 +11,7 @@ class KitsLocalDataSourceImpl implements KitsLocalDataSource {
   List<KitModel>? _cache;
 
   @override
-  Future<List<KitModel>> getAllKits() async {
+  Future<List<KitModel>> getKits() async {
     if (_cache != null) {
       return _cache!;
     }
@@ -27,8 +27,19 @@ class KitsLocalDataSourceImpl implements KitsLocalDataSource {
   }
 
   @override
-  Future<List<KitModel>> getTeamKits(String teamId) async {
-    final kits = await getAllKits();
+  Future<List<KitModel>> getKitsByTeamId(String teamId) async {
+    final kits = await getKits();
     return kits.where((kit) => kit.teamId == teamId).toList();
+  }
+
+  @override
+  Future<KitModel?> getKitById(String id) async {
+    final kits = await getKits();
+    for (final kit in kits) {
+      if (kit.id == id) {
+        return kit;
+      }
+    }
+    return null;
   }
 }

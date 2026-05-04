@@ -1,5 +1,7 @@
 import '../entities/kit.dart';
 
 abstract class KitRepository {
-  Future<List<Kit>> getTeamKits(String teamId);
+  Future<List<Kit>> getKitsByTeamId(String teamId);
+
+  Future<Kit?> getKitById(String id);
 }

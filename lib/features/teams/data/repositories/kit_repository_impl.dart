@@ -8,8 +8,14 @@ class KitRepositoryImpl implements KitRepository {
   KitRepositoryImpl({required this.localDataSource});
 
   @override
-  Future<List<Kit>> getTeamKits(String teamId) async {
-    final models = await localDataSource.getTeamKits(teamId);
+  Future<List<Kit>> getKitsByTeamId(String teamId) async {
+    final models = await localDataSource.getKitsByTeamId(teamId);
     return models.map((model) => model.toEntity()).toList();
+  }
+
+  @override
+  Future<Kit?> getKitById(String id) async {
+    final model = await localDataSource.getKitById(id);
+    return model?.toEntity();
   }
 }

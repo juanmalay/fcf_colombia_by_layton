@@ -4,21 +4,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/design_system/app_colors.dart';
 import '../../../../core/design_system/app_text_styles.dart';
 import '../../../favorites/presentation/providers/favorites_providers.dart';
-import '../../domain/entities/team.dart';
 import '../providers/kit_providers.dart';
 import 'kit_card.dart';
 
 class KitHistorySection extends ConsumerWidget {
-  final Team team;
+  final String teamId;
 
   const KitHistorySection({
     Key? key,
-    required this.team,
+    required this.teamId,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final kitsState = ref.watch(teamKitsProvider(team.id));
+    final kitsState = ref.watch(teamKitsProvider(teamId));
     final favorites = ref.watch(favoritesProvider);
 
     return Padding(
@@ -55,7 +54,7 @@ class KitHistorySection extends ConsumerWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Selección de camisetas registradas para ${team.name}.',
+              'Selección de camisetas registradas para este equipo.',
               style: AppTextStyles.bodySmall.copyWith(
                 color: AppColors.textSecondary,
               ),
@@ -64,7 +63,7 @@ class KitHistorySection extends ConsumerWidget {
             kitsState.when(
               loading: () => const _KitHistoryLoadingState(),
               error: (error, stackTrace) => _KitHistoryErrorState(
-                onRetry: () => ref.refresh(teamKitsProvider(team.id)),
+                onRetry: () => ref.refresh(teamKitsProvider(teamId)),
               ),
               data: (kits) {
                 if (kits.isEmpty) {
@@ -89,7 +88,7 @@ class KitHistorySection extends ConsumerWidget {
                     const SizedBox(height: 4),
                     Text(
                       kits.length > 3
-                          ? 'Ver todas próximamente.'
+                          ? 'Ver historia completa'
                           : 'Más camisetas disponibles próximamente.',
                       style: AppTextStyles.bodySmall.copyWith(
                         color: AppColors.textSecondary,

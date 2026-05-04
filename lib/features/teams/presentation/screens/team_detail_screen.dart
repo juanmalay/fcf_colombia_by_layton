@@ -79,7 +79,7 @@ class _TeamDetailContent extends StatelessWidget {
           // Info del equipo
           _TeamInfoSection(team: team),
           const SizedBox(height: 16),
-          KitHistorySection(team: team),
+          KitHistorySection(teamId: team.id),
           const SizedBox(height: 24),
         ],
       ),

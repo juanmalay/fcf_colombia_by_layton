@@ -1,6 +1,50 @@
 {
   "kits": [
     {
+      "id": "colombia-1990-home",
+      "teamId": "colombia",
+      "season": "1990",
+      "type": "home",
+      "imageUrl": "",
+      "brand": "adidas",
+      "sponsor": "FCF",
+      "description": "Camiseta amarilla clásica del ciclo mundialista de Italia 90.",
+      "tournament": "Copa Mundial FIFA"
+    },
+    {
+      "id": "colombia-1994-home",
+      "teamId": "colombia",
+      "season": "1994",
+      "type": "home",
+      "imageUrl": "",
+      "brand": "adidas",
+      "sponsor": "FCF",
+      "description": "Diseño de referencia del equipo colombiano rumbo a USA 94.",
+      "tournament": "Copa Mundial FIFA"
+    },
+    {
+      "id": "colombia-2014-home",
+      "teamId": "colombia",
+      "season": "2014",
+      "type": "home",
+      "imageUrl": "",
+      "brand": "adidas",
+      "sponsor": "FCF",
+      "description": "Camiseta amarilla del regreso colombiano a un Mundial en Brasil 2014.",
+      "tournament": "Copa Mundial FIFA"
+    },
+    {
+      "id": "colombia-2018-away",
+      "teamId": "colombia",
+      "season": "2018",
+      "type": "away",
+      "imageUrl": "",
+      "brand": "adidas",
+      "sponsor": "FCF",
+      "description": "Camiseta visitante azul marino usada durante Rusia 2018.",
+      "tournament": "Copa Mundial FIFA"
+    },
+    {
       "id": "colombia-2024-home",
       "teamId": "colombia",
       "season": "2024",
@@ -8,74 +52,63 @@
       "imageUrl": "",
       "brand": "adidas",
       "sponsor": "FCF",
-      "description": "Camiseta principal amarilla con detalles tricolor.",
-      "tournament": "Eliminatorias CONMEBOL"
-    },
-    {
-      "id": "colombia-2024-away",
-      "teamId": "colombia",
-      "season": "2024",
-      "type": "away",
-      "imageUrl": "",
-      "brand": "adidas",
-      "sponsor": "FCF",
-      "description": "Camiseta visitante oscura para competiciones internacionales.",
+      "description": "Modelo principal actual para el ciclo competitivo 2024.",
       "tournament": "Copa America"
     },
     {
-      "id": "colombia-2023-goalkeeper",
-      "teamId": "colombia",
-      "season": "2023",
-      "type": "goalkeeper",
-      "imageUrl": "",
-      "brand": "adidas",
-      "sponsor": "FCF",
-      "description": "Uniforme de arquero con paneles de alto contraste.",
-      "tournament": "Amistosos Internacionales"
-    },
-    {
-      "id": "argentina-2024-home",
+      "id": "argentina-1986-home",
       "teamId": "argentina",
-      "season": "2024",
+      "season": "1986",
       "type": "home",
       "imageUrl": "",
       "brand": "adidas",
       "sponsor": "AFA",
-      "description": "Diseño clásico celeste y blanco para el ciclo actual.",
-      "tournament": "Copa America"
+      "description": "Camiseta icónica del título argentino en México 86.",
+      "tournament": "Copa Mundial FIFA"
     },
     {
-      "id": "brasil-2024-home",
+      "id": "argentina-2022-home",
+      "teamId": "argentina",
+      "season": "2022",
+      "type": "home",
+      "imageUrl": "",
+      "brand": "adidas",
+      "sponsor": "AFA",
+      "description": "Diseño campeón del mundo en Qatar 2022.",
+      "tournament": "Copa Mundial FIFA"
+    },
+    {
+      "id": "brasil-1970-home",
       "teamId": "brasil",
-      "season": "2024",
+      "season": "1970",
       "type": "home",
       "imageUrl": "",
-      "brand": "Nike",
+      "brand": "Umbro",
       "sponsor": "CBF",
-      "description": "Camiseta local amarilla con vivos verdes renovados.",
-      "tournament": "Eliminatorias CONMEBOL"
+      "description": "Camiseta amarilla legendaria del Brasil tricampeón de 1970.",
+      "tournament": "Copa Mundial FIFA"
     },
     {
-      "id": "uruguay-2024-home",
+      "id": "uruguay-1950-home",
       "teamId": "uruguay",
-      "season": "2024",
+      "season": "1950",
       "type": "home",
       "imageUrl": "",
-      "brand": "Nike",
+      "brand": "Sin registro",
       "sponsor": "AUF",
-      "description": "Modelo celeste de competencia para el ciclo 2024.",
-      "tournament": "Copa America"
+      "description": "Modelo histórico asociado al Maracanazo de 1950.",
+      "tournament": "Copa Mundial FIFA"
     },
     {
-      "id": "ecuador-2024-home",
+      "id": "ecuador-2022-home",
       "teamId": "ecuador",
-      "season": "2024",
+      "season": "2022",
       "type": "home",
       "imageUrl": "",
       "brand": "Marathon",
       "sponsor": "FEF",
-      "description": "Camiseta principal amarilla con bloques gráficos azul marino.",
-      "tournament": "Eliminatorias CONMEBOL"
+      "description": "Camiseta principal del retorno ecuatoriano al Mundial 2022.",
+      "tournament": "Copa Mundial FIFA"
     }
   ]
 }
