@@ -10,12 +10,18 @@ Usar **matches** como módulo patrón.
 
 ## 🔁 Orden de desarrollo
 
-matches (base)
-teams (alinear)
-home
-explore
-players
-tournaments
+1. Matches (base)
+2. Teams (alinear)
+3. Kit History
+4. Home
+5. Explore
+6. Players
+7. Tournaments + Standings
+8. News
+9. Multimedia
+10. Favorites global
+11. Settings global
+12. Diseño premium final
 
 ---
 

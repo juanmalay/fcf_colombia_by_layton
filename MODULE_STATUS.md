@@ -5,7 +5,7 @@
 ## 🟢 COMPLETOS
 
 ### Matches
-- Backend: ✅
+- Backend: ❌
 - Frontend: ✅
 - Estado: módulo patrón
 
@@ -14,52 +14,49 @@
 ## 🟡 PARCIALES
 
 ### Teams
-- Backend: ✅
+- Backend: ❌
 - Frontend: ⚠️
 - Pendiente:
-  - alinear con matches
-  - limpiar arquitectura
+  - Alinear con Matches
+  - Limpiar arquitectura
 
 ---
 
 ### Home
 - UI: ⚠️
 - Pendiente:
-  - integrar con matches
-  - usar providers
+  - Integrar con Matches
+  - Usar providers
 
 ---
 
 ### Explore
 - Estado: mock
 - Pendiente:
-  - navegación real
+  - Navegación real
 
 ---
 
 ### Favorites
-- UI: ⚠️
+- UI: ✅
+- Persistencia: ✅
 - Pendiente:
-  - lógica
-  - persistencia
-  - 🔥 soporte para kits
+  - Soporte para kits
 
 ---
 
 ### Settings
-- UI: ⚠️
-- Pendiente:
-  - provider
-  - persistencia
+- UI: ✅
+- Persistencia: ✅
 
 ---
 
 ### Kit History (NEW)
 - Estado: ⏳
 - Pendiente:
-  - modelo Kit
+  - Modelo Kit
   - UI (timeline / cards)
-  - integración en Team Detail
+  - Integración en Team Detail
 
 ---  
 
@@ -70,22 +67,22 @@
 - Standings
 - News
 - Multimedia
-- Users
 
 ---
 
 ## 🧠 NOTAS
 
-- matches es referencia base
-- no iniciar módulos nuevos sin cerrar los actuales
-- evitar placeholders innecesarios
+- Matches es referencia base
+- No iniciar módulos nuevos sin cerrar los actuales
+- Evitar placeholders innecesarios
 
 ---
 
 ## 🎯 PRIORIDAD
 
-1. matches (cerrar)
-2. teams (alinear)
-3. home (real)
-4. explore (hub)
-5. players
+1. Matches (cerrar)
+2. Teams (alinear)
+3. Kit History
+4. Home (real)
+5. Explore (hub)
+6. Players
