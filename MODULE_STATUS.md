@@ -29,8 +29,24 @@
   - Estados loading/error/empty/data
   - Fallback local desde `assets/data/teams.json`
   - Favoritos con `favoritesProvider` usando formato `team:id`
-  - CTA preparada para Kit History sin datos fake
+  - Integración de Kit History vía `KitHistorySection(teamId)`
 - Pendiente:
+  - Diseño premium (fase final)
+  - Limpieza técnica global (warnings/lints)
+
+### Kit History
+- Backend: ❌
+- Frontend: ✅ (funcional básico)
+- Estado: implementado funcionalmente (MVP base)
+- Cobertura actual:
+  - Submódulo con Clean Architecture (domain/data/presentation)
+  - Fuente local desde `assets/data/kits.json`
+  - Integración en `TeamDetailScreen` mediante `KitHistorySection(teamId)`
+  - Estados loading/error/empty/data
+  - Máximo 3 camisetas en detalle + CTA "Ver historia completa"
+  - Favoritos de kits con `favoritesProvider` usando formato `kit:id`
+- Pendiente:
+  - Pantalla completa de historial (si se decide navegar)
   - Diseño premium (fase final)
   - Limpieza técnica global (warnings/lints)
 
@@ -69,14 +85,7 @@
 
 ---
 
-### Kit History (NEW)
-- Estado: ⏳
-- Pendiente:
-  - Modelo Kit
-  - UI (timeline / cards)
-  - Integración en Team Detail
-
----  
+---
 
 ## 🔴 PENDIENTES
 
@@ -99,13 +108,12 @@
 
 ## 🎯 PRIORIDAD
 
-1. Kit History
-2. Home (real)
-3. Explore (hub)
-4. Players
-5. Tournaments + Standings
-6. News
-7. Multimedia
-8. Favorites global
-9. Settings global
-10. Diseño premium final
+1. Home (real)
+2. Explore (hub)
+3. Players
+4. Tournaments + Standings
+5. News
+6. Multimedia
+7. Favorites global
+8. Settings global
+9. Diseño premium final

@@ -12,8 +12,8 @@ Usar **matches** como módulo patrón.
 
 1. Matches (base)
 2. Teams (base)
-3. Kit History
-4. Home
+3. Kit History (base)
+4. Home (real)
 5. Explore
 6. Players
 7. Tournaments + Standings
@@ -29,7 +29,11 @@ Usar **matches** como módulo patrón.
 
 - Matches: cerrado funcionalmente en frontend (MVP)
 - Teams: cerrado funcionalmente en frontend (MVP)
-- Siguiente prioridad: Kit History
+- Kit History: implementado funcionalmente (base)
+- Integración: TeamDetailScreen mediante `KitHistorySection(teamId)`
+- Fuente local: `assets/data/kits.json`
+- Favoritos de kits: `favoritesProvider` con formato `kit:id`
+- Siguiente prioridad: Home real
 - Pendiente transversal: limpieza técnica global (warnings/lints)
 - Diseño premium: reservado para la fase final
 

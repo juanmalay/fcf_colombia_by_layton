@@ -1,10 +1,10 @@
 {
   "name": "fcf_colombia_by_layton",
   "status": "Desarrollo",
-  "progress": 61,
+  "progress": 67,
   "type": "Producto",
   "priority": "Alta",
-  "summary": "App Flutter multiplataforma no oficial sobre la Selección Colombia, con arquitectura por features, Riverpod, GoRouter, design system e integración HTTP con Dio. Matches y Teams quedaron cerrados funcionalmente en frontend (MVP): lista y detalle reales con providers, loading/error/data, favoritos y fallback local cuando la API no está disponible. Teams usa `assets/data/teams.json` y favoritos con formato `team:id`. Kit History pasa a ser la siguiente prioridad. Home consume datos de Matches, Explore navega a rutas reales, Favorites/Settings tienen persistencia local y Players/Tournaments/News/Multimedia continúan como placeholders. El backend Spring Boot y PostgreSQL está documentado históricamente, pero no existe en este repositorio.",
+  "summary": "App Flutter multiplataforma no oficial sobre la Selección Colombia, con arquitectura por features, Riverpod, GoRouter, design system e integración HTTP con Dio. Matches y Teams quedaron cerrados funcionalmente en frontend (MVP). Kit History también quedó implementado funcionalmente en su versión base dentro de Teams, usando `assets/data/kits.json` e integración en TeamDetail con `KitHistorySection(teamId)`, además de favoritos en formato `kit:id`. La siguiente prioridad funcional es Home real. Explore navega a rutas reales, Favorites/Settings tienen persistencia local y Players/Tournaments/News/Multimedia continúan como placeholders. El backend Spring Boot y PostgreSQL está documentado históricamente, pero no existe en este repositorio.",
   "version": "1.0.0+1",
   "modules": [
     {
@@ -35,14 +35,20 @@
       "name": "Teams",
       "status": "Cierre funcional frontend",
       "progress": 94,
-      "description": "Módulo cerrado funcionalmente en frontend: entity, repository contract, usecases, DTO, remote datasource, local datasource formal, repository impl con fallback API->assets, providers Riverpod, TeamsScreen, TeamDetailScreen y TeamCard conectados a datos reales. Usa `assets/data/teams.json` como fallback local y favoritos con `favoritesProvider` usando formato `team:id`. Pendiente: Kit History, limpieza técnica global de warnings/lints y fase de diseño premium final."
+      "description": "Módulo cerrado funcionalmente en frontend: entity, repository contract, usecases, DTO, remote datasource, local datasource formal, repository impl con fallback API->assets, providers Riverpod, TeamsScreen, TeamDetailScreen y TeamCard conectados a datos reales. Usa `assets/data/teams.json` como fallback local y favoritos con `favoritesProvider` usando formato `team:id`. Incluye integración de Kit History en TeamDetailScreen. Pendiente: limpieza técnica global de warnings/lints y fase de diseño premium final."
     },
     {
       "name": "Home",
       "status": "Desarrollo",
       "progress": 45,
-      "description": "HomeScreen consume upcomingMatchesProvider y recentMatchesProvider para mostrar próximo partido y resultados recientes. Noticias sigue pendiente de integración real."
+      "description": "Siguiente prioridad de cierre funcional. HomeScreen consume upcomingMatchesProvider y recentMatchesProvider para mostrar próximo partido y resultados recientes. Noticias sigue pendiente de integración real."
     },
+        {
+          "name": "Kit History",
+          "status": "Cierre funcional frontend (básico)",
+          "progress": 85,
+          "description": "Submódulo implementado en Teams con Clean Architecture (entity, repository, usecase, model, local datasource, repository impl, providers y widgets). Fuente local desde `assets/data/kits.json`, integración en TeamDetailScreen mediante `KitHistorySection(teamId)`, estados loading/error/empty/data, límite inicial de 3 camisetas y favoritos con formato `kit:id`. Pendiente: vista completa de historial y fase de diseño premium final."
+        },
     {
       "name": "Explore",
       "status": "Desarrollo",
