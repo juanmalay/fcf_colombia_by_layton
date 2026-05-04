@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../domain/entities/match.dart' as match_entity;
 import '../../../../core/design_system/app_colors.dart';
-import '../../../../core/design_system/app_spacing.dart';
 import '../../../../core/design_system/app_text_styles.dart';
 
 /// Widget para mostrar un partido en formato card premium
 class MatchCard extends StatelessWidget {
   final match_entity.Match match;
   final VoidCallback? onTap;
+  final bool isFavorite;
+  final VoidCallback? onFavoriteTap;
   final bool showVenue;
 
   const MatchCard({
     Key? key,
     required this.match,
     this.onTap,
-    this.showVenue = false,
+    required this.isFavorite,
+    this.onFavoriteTap,
+    this.showVenue = true,
   }) : super(key: key);
 
   @override
@@ -142,6 +145,18 @@ class MatchCard extends StatelessWidget {
                         textAlign: TextAlign.right,
                       ),
                     ),
+                ],
+              ),
+              const SizedBox(height: 14),
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: isFavorite ? AppColors.accent : AppColors.textSecondary,
+                    ),
+                    onPressed: onFavoriteTap,
+                  ),
                 ],
               ),
             ],

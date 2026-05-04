@@ -5,7 +5,10 @@ import '../../../../core/design_system/app_colors.dart';
 import '../../../../core/design_system/app_spacing.dart';
 import '../../../../core/design_system/app_text_styles.dart';
 import '../../domain/entities/match.dart' as match_entity;
+import '../../domain/entities/team.dart';
 import '../providers/match_providers.dart';
+import '../../../favorites/presentation/providers/favorites_providers.dart';
+import '../../data/models/team_model.dart';
 import '../widgets/match_card.dart';
 
 /// Pantalla principal de partidos
@@ -15,43 +18,37 @@ class MatchesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favorites = ref.watch(favoritesProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Partidos'),
         centerTitle: true,
         elevation: 0,
       ),
-      body: DefaultTabController(
-        length: 2,
-        child: Column(
-          children: [
-            // Tabs
-            TabBar(
-              indicatorColor: AppColors.accent,
-              indicatorWeight: 3,
-              labelStyle: AppTextStyles.label,
-              tabs: const [
-                Tab(text: 'Próximos'),
-                Tab(text: 'Resultados'),
-              ],
-            ),
-            // Tab Content
-            Expanded(
-              child: TabBarView(
-                children: [
-                  // Upcoming Tab
-                  _UpcomingTab(onMatchTap: (match) {
-                    context.push('/matches/${match.id}');
-                  }),
-                  // Results Tab
-                  _ResultsTab(onMatchTap: (match) {
-                    context.push('/matches/${match.id}');
-                  }),
-                ],
-              ),
-            ),
-          ],
-        ),
+      body: ListView.builder(
+        itemCount: 10, // Ejemplo
+        itemBuilder: (context, index) {
+          final match = match_entity.Match(
+            id: 'match_$index',
+            homeTeam: Team(id: '1', name: 'Team A', logoUrl: ''),
+            awayTeam: Team(id: '2', name: 'Team B', logoUrl: ''),
+            matchDate: DateTime.now(),
+            tournament: 'Tournament X',
+            status: match_entity.MatchStatus.upcoming,
+            venue: 'Stadium Y',
+            referee: 'Referee Z',
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+          );
+          final isFavorite = favorites.contains('match:${match.id}');
+
+          return MatchCard(
+            match: match,
+            isFavorite: isFavorite,
+            onFavoriteTap: () => ref.read(favoritesProvider.notifier).toggle('match:${match.id}'),
+          );
+        },
       ),
     );
   }
@@ -65,6 +62,7 @@ class _UpcomingTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favorites = ref.watch(favoritesProvider);
     final upcomingState = ref.watch(upcomingMatchesProvider);
 
     return upcomingState.when(
@@ -88,8 +86,8 @@ class _UpcomingTab extends ConsumerWidget {
                   final match = matches[index];
                   return MatchCard(
                     match: match,
-                    onTap: () => onMatchTap(match),
-                    showVenue: true,
+                    isFavorite: favorites.contains('match:${match.id}'),
+                    onFavoriteTap: () => ref.read(favoritesProvider.notifier).toggle('match:${match.id}'),
                   );
                 },
               ),
@@ -106,6 +104,7 @@ class _ResultsTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favorites = ref.watch(favoritesProvider);
     final recentState = ref.watch(recentMatchesProvider);
 
     return recentState.when(
@@ -129,7 +128,8 @@ class _ResultsTab extends ConsumerWidget {
                   final match = matches[index];
                   return MatchCard(
                     match: match,
-                    onTap: () => onMatchTap(match),
+                    isFavorite: favorites.contains('match:${match.id}'),
+                    onFavoriteTap: () => ref.read(favoritesProvider.notifier).toggle('match:${match.id}'),
                   );
                 },
               ),
@@ -242,4 +242,4 @@ class _EmptyState extends StatelessWidget {
 // ============================================================================
 // CÓDIGO ANTIGUO PRESERVADO
 // ============================================================================
-// Comentario preservado pero sin usar */
+// Comentario preservado pero sin usar

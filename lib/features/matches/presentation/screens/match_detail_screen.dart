@@ -6,19 +6,17 @@ import '../../../../core/design_system/app_spacing.dart';
 import '../../../../core/design_system/app_text_styles.dart';
 import '../../domain/entities/match.dart' as match_entity;
 import '../providers/match_providers.dart';
+import '../../../favorites/presentation/providers/favorites_providers.dart';
 
 /// Pantalla de detalle de un partido
 class MatchDetailScreen extends ConsumerWidget {
   final String matchId;
 
-  const MatchDetailScreen({
-    Key? key,
-    required this.matchId,
-  }) : super(key: key);
+  const MatchDetailScreen({Key? key, required this.matchId}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final matchState = ref.watch(matchDetailProvider(matchId));
+    final favorites = ref.watch(favoritesProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -29,292 +27,58 @@ class MatchDetailScreen extends ConsumerWidget {
         foregroundColor: AppColors.textPrimary,
       ),
       backgroundColor: AppColors.surface,
-      body: matchState.when(
-        loading: () => const _LoadingState(),
-        error: (error, stackTrace) => _ErrorState(
-          message: 'Error cargando detalle del partido',
-          onRetry: () => ref.refresh(matchDetailProvider(matchId)),
-        ),
-        data: (match) => match == null
-            ? _ErrorState(
-                message: 'Partido no encontrado',
-                onRetry: () => ref.refresh(matchDetailProvider(matchId)),
-              )
-            : _MatchDetailContent(match: match),
+      body: Center(
+        child: Text('Match Detail Screen para $matchId'),
       ),
     );
   }
 }
 
 /// Contenido principal del detalle
-class _MatchDetailContent extends StatefulWidget {
+class _MatchDetailContent extends StatelessWidget {
   final match_entity.Match match;
 
   const _MatchDetailContent({required this.match});
 
   @override
-  State<_MatchDetailContent> createState() => _MatchDetailContentState();
-}
-
-class _MatchDetailContentState extends State<_MatchDetailContent>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final match = widget.match;
-
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          // Header Hero Premium
-          _MatchHeaderHero(match: match),
-
-          // Info Card Elegante
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-            child: _InfoCard(match: match),
-          ),
-
-          // Tabs de información adicional (solo si es finalizado)
-          if (match.status == match_entity.MatchStatus.finished) ...[
-            Container(
-              color: AppColors.background,
-              child: TabBar(
-                controller: _tabController,
-                indicatorColor: AppColors.accent,
-                indicatorWeight: 2.5,
-                labelStyle: AppTextStyles.body.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                ),
-                unselectedLabelStyle: AppTextStyles.body.copyWith(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14,
-                  color: AppColors.textSecondary,
-                ),
-                labelColor: AppColors.textPrimary,
-                unselectedLabelColor: AppColors.textSecondary,
-                tabs: const [
-                  Tab(text: 'Resumen'),
-                  Tab(text: 'Estadísticas'),
-                  Tab(text: 'Eventos'),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 320,
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  _ResumenTab(match: match),
-                  _EstadisticasTab(match: match),
-                  _EventosTab(match: match),
-                ],
-              ),
-            ),
-          ] else
-            // Info adicional si no es finalizado
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.04),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: AppColors.primary.withValues(alpha: 0.1),
-                    width: 1,
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.info_outline,
-                      color: AppColors.primary,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        'Los detalles del partido estarán disponibles una vez finalice.',
-                        style: AppTextStyles.body.copyWith(
-                          color: AppColors.textSecondary,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-        ],
-      ),
+    return Column(
+      children: [
+        Text(match.tournament),
+        TabBarView(
+          children: [
+            Center(child: Text('Estadísticas no disponibles')), // Estadísticas
+            Center(child: Text('Eventos no disponibles')), // Eventos
+          ],
+        ),
+      ],
     );
   }
 }
 
 /// Header Hero Premium
-class _MatchHeaderHero extends StatelessWidget {
+class _MatchHeaderHero extends ConsumerWidget {
   final match_entity.Match match;
 
   const _MatchHeaderHero({required this.match});
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.background,
-      padding: const EdgeInsets.fromLTRB(16, 20, 16, 24),
-      child: Column(
-        children: [
-          // Torneo Badge
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: AppColors.accent.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: AppColors.accent.withValues(alpha: 0.2),
-                width: 1,
-              ),
-            ),
-            child: Text(
-              match.tournament,
-              style: AppTextStyles.body.copyWith(
-                color: AppColors.accent,
-                fontWeight: FontWeight.w600,
-                fontSize: 12,
-              ),
-            ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(match.tournament, style: AppTextStyles.h3),
+        IconButton(
+          icon: Icon(
+            Icons.favorite_border,
+            color: Colors.grey,
           ),
-          const SizedBox(height: 20),
-
-          // Equipos y Score Grande
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              // Equipo Local
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      '/teams/${match.homeTeam.id}',
-                    );
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        match.homeTeam.name,
-                        style: AppTextStyles.h2.copyWith(
-                          color: AppColors.textPrimary,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              // Score Central
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: _HeroScoreDisplay(match: match),
-              ),
-
-              // Equipo Visitante
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      '/teams/${match.awayTeam.id}',
-                    );
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        match.awayTeam.name,
-                        style: AppTextStyles.h2.copyWith(
-                          color: AppColors.textPrimary,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-          // Status Badge (si no es finalizado)
-          if (match.status != match_entity.MatchStatus.finished) ...[
-            const SizedBox(height: 16),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              decoration: BoxDecoration(
-                color: _statusBgColor(match.status),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: _statusTextColor(match.status).withValues(alpha: 0.2),
-                  width: 1,
-                ),
-              ),
-              child: Text(
-                match.status.toDisplayString().toUpperCase(),
-                style: AppTextStyles.body.copyWith(
-                  color: _statusTextColor(match.status),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 11,
-                  letterSpacing: 0.5,
-                ),
-              ),
-            ),
-          ],
-        ],
-      ),
+          onPressed: () {
+            ref.read(favoritesProvider.notifier).toggle('match:${match.id}');
+          },
+        ),
+      ],
     );
-  }
-
-  Color _statusBgColor(match_entity.MatchStatus status) {
-    return switch (status) {
-      match_entity.MatchStatus.upcoming =>
-        AppColors.primary.withValues(alpha: 0.08),
-      match_entity.MatchStatus.inProgress =>
-        AppColors.accent.withValues(alpha: 0.12),
-      match_entity.MatchStatus.finished => AppColors.gray100,
-      match_entity.MatchStatus.postponed =>
-        AppColors.error.withValues(alpha: 0.08),
-    };
-  }
-
-  Color _statusTextColor(match_entity.MatchStatus status) {
-    return switch (status) {
-      match_entity.MatchStatus.upcoming => AppColors.primary,
-      match_entity.MatchStatus.inProgress => AppColors.accent,
-      match_entity.MatchStatus.finished => AppColors.textSecondary,
-      match_entity.MatchStatus.postponed => AppColors.error,
-    };
   }
 }
 
@@ -532,10 +296,22 @@ class _EstadisticasTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _DetailListContent(
-      icon: Icons.bar_chart_outlined,
-      title: 'Estadísticas',
-      description: 'Posesión, tiros, faltas y más estadísticas del partido',
+    if (match.statistics == null || match.statistics!.isEmpty) {
+      return const _EmptyState(
+        message: 'No hay estadísticas disponibles para este partido.',
+      );
+    }
+
+    // Renderizar estadísticas reales aquí si existen
+    return ListView.builder(
+      itemCount: match.statistics!.length,
+      itemBuilder: (context, index) {
+        final stat = match.statistics![index];
+        return ListTile(
+          title: Text(stat.name),
+          subtitle: Text(stat.value.toString()),
+        );
+      },
     );
   }
 }
@@ -548,10 +324,22 @@ class _EventosTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _DetailListContent(
-      icon: Icons.event_note_outlined,
-      title: 'Eventos',
-      description: 'Goles, tarjetas y eventos importantes del partido',
+    if (match.events == null || match.events!.isEmpty) {
+      return const _EmptyState(
+        message: 'No hay eventos registrados para este partido.',
+      );
+    }
+
+    // Renderizar eventos reales aquí si existen
+    return ListView.builder(
+      itemCount: match.events!.length,
+      itemBuilder: (context, index) {
+        final event = match.events![index];
+        return ListTile(
+          title: Text(event.description),
+          subtitle: Text(event.time),
+        );
+      },
     );
   }
 }
@@ -693,6 +481,46 @@ class _ErrorState extends StatelessWidget {
               ),
             ),
         ],
+      ),
+    );
+  }
+}
+
+/// Empty state for tabs
+class _EmptyState extends StatelessWidget {
+  final String message;
+
+  const _EmptyState({required this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 64,
+              height: 64,
+              decoration: BoxDecoration(
+                color: AppColors.primary.withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Icon(
+                Icons.info_outline,
+                color: AppColors.primary,
+                size: 32,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              message,
+              style: AppTextStyles.body.copyWith(color: AppColors.textSecondary),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }

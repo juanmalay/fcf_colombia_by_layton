@@ -40,6 +40,8 @@ class Match {
   final String referee;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final List<Statistic>? statistics;
+  final List<Event>? events;
 
   Match({
     required this.id,
@@ -54,6 +56,8 @@ class Match {
     required this.referee,
     required this.createdAt,
     required this.updatedAt,
+    this.statistics,
+    this.events,
   });
 
   /// Score como string (ej: "2-1")
@@ -98,6 +102,8 @@ class Match {
     String? referee,
     DateTime? createdAt,
     DateTime? updatedAt,
+    List<Statistic>? statistics,
+    List<Event>? events,
   }) {
     return Match(
       id: id ?? this.id,
@@ -112,6 +118,22 @@ class Match {
       referee: referee ?? this.referee,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      statistics: statistics ?? this.statistics,
+      events: events ?? this.events,
     );
   }
+}
+
+class Statistic {
+  final String name;
+  final dynamic value;
+
+  Statistic({required this.name, required this.value});
+}
+
+class Event {
+  final String description;
+  final String time;
+
+  Event({required this.description, required this.time});
 }
