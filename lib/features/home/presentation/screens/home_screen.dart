@@ -7,7 +7,7 @@ import '../../../matches/presentation/providers/match_providers.dart';
 
 /// Pantalla de inicio con resumen conectado al modulo Matches.
 class HomeScreen extends ConsumerWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,12 +26,12 @@ class HomeScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             upcomingState.when(
-              loading: () => _HomePanel(
+              loading: () => const _HomePanel(
                 title: 'Proximo partido',
                 value: 'Cargando...',
                 color: AppColors.primary,
               ),
-              error: (_, __) => _HomePanel(
+              error: (_, __) => const _HomePanel(
                 title: 'Proximo partido',
                 value: 'No disponible',
                 color: AppColors.primary,
@@ -47,7 +47,7 @@ class HomeScreen extends ConsumerWidget {
               },
             ),
             const SizedBox(height: AppSpacing.lg),
-            Text('Resultados Recientes', style: AppTextStyles.h3),
+            const Text('Resultados Recientes', style: AppTextStyles.h3),
             const SizedBox(height: AppSpacing.md),
             recentState.when(
               loading: () => const _CompactPanel(text: 'Cargando resultados...'),
