@@ -17,13 +17,11 @@ abstract class AppException implements Exception {
 /// Excepción de red (conexión, timeout, etc)
 class NetworkException extends AppException {
   NetworkException({
-    required String message,
+    required super.message,
     String? code,
-    StackTrace? stackTrace,
+    super.stackTrace,
   }) : super(
-    message: message,
     code: code ?? 'NETWORK_ERROR',
-    stackTrace: stackTrace,
   );
 }
 
@@ -32,52 +30,44 @@ class ServerException extends AppException {
   final int? statusCode;
 
   ServerException({
-    required String message,
+    required super.message,
     this.statusCode,
     String? code,
-    StackTrace? stackTrace,
+    super.stackTrace,
   }) : super(
-    message: message,
     code: code ?? 'SERVER_ERROR',
-    stackTrace: stackTrace,
   );
 }
 
 /// Excepción de parseo (JSON, etc)
 class ParseException extends AppException {
   ParseException({
-    required String message,
+    required super.message,
     String? code,
-    StackTrace? stackTrace,
+    super.stackTrace,
   }) : super(
-    message: message,
     code: code ?? 'PARSE_ERROR',
-    stackTrace: stackTrace,
   );
 }
 
 /// Excepción desconocida
 class UnknownException extends AppException {
   UnknownException({
-    required String message,
+    required super.message,
     String? code,
-    StackTrace? stackTrace,
+    super.stackTrace,
   }) : super(
-    message: message,
     code: code ?? 'UNKNOWN_ERROR',
-    stackTrace: stackTrace,
   );
 }
 
 /// Excepción de validación
 class ValidationException extends AppException {
   ValidationException({
-    required String message,
+    required super.message,
     String? code,
-    StackTrace? stackTrace,
+    super.stackTrace,
   }) : super(
-    message: message,
     code: code ?? 'VALIDATION_ERROR',
-    stackTrace: stackTrace,
   );
 }

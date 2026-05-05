@@ -10,7 +10,7 @@ import '../../../favorites/presentation/providers/favorites_providers.dart';
 import '../widgets/match_card.dart';
 
 class MatchesScreen extends ConsumerWidget {
-  const MatchesScreen({Key? key}) : super(key: key);
+  const MatchesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,7 +40,7 @@ class MatchesScreen extends ConsumerWidget {
 }
 
 class _UpcomingTab extends ConsumerWidget {
-  const _UpcomingTab({Key? key}) : super(key: key);
+  const _UpcomingTab({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -49,7 +49,7 @@ class _UpcomingTab extends ConsumerWidget {
 
     return upcomingState.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => Center(
+      error: (error, stackTrace) => const Center(
         child: Text('Error cargando partidos próximos'),
       ),
       data: (matches) => matches.isEmpty
@@ -75,7 +75,7 @@ class _UpcomingTab extends ConsumerWidget {
 }
 
 class _ResultsTab extends ConsumerWidget {
-  const _ResultsTab({Key? key}) : super(key: key);
+  const _ResultsTab({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -84,7 +84,7 @@ class _ResultsTab extends ConsumerWidget {
 
     return recentState.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => Center(
+      error: (error, stackTrace) => const Center(
         child: Text('Error cargando resultados recientes'),
       ),
       data: (matches) => matches.isEmpty

@@ -7,7 +7,7 @@ import '../../../../core/design_system/app_text_styles.dart';
 
 /// Hub de exploracion con navegacion real a modulos secundarios.
 class ExploreScreen extends ConsumerWidget {
-  const ExploreScreen({Key? key}) : super(key: key);
+  const ExploreScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -103,7 +103,7 @@ class _ExploreTile extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(
+            const Icon(
               Icons.arrow_forward_ios,
               color: AppColors.textSecondary,
               size: 16,

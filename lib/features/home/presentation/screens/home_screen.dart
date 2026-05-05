@@ -63,7 +63,7 @@ class HomeScreen extends ConsumerWidget {
               },
             ),
             const SizedBox(height: AppSpacing.lg),
-            Text('Noticias', style: AppTextStyles.h3),
+            const Text('Noticias', style: AppTextStyles.h3),
             const SizedBox(height: AppSpacing.md),
             const _CompactPanel(text: 'Noticias pendientes de integracion'),
           ],

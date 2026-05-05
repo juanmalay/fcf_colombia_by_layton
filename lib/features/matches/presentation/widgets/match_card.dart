@@ -13,13 +13,13 @@ class MatchCard extends StatelessWidget {
   final bool showVenue;
 
   const MatchCard({
-    Key? key,
+    super.key,
     required this.match,
     this.onTap,
     this.isFavorite = false, // Cambiado a opcional con valor predeterminado
     this.onFavoriteTap,
     this.showVenue = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +34,11 @@ class MatchCard extends StatelessWidget {
             color: AppColors.border,
             width: 0.8,
           ),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
-              color: const Color(0x0F000000),
+              color: Color(0x0F000000),
               blurRadius: 12,
-              offset: const Offset(0, 3),
+              offset: Offset(0, 3),
             ),
           ],
         ),

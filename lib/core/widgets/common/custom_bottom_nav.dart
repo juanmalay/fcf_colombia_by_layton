@@ -25,14 +25,14 @@ class CustomBottomNav extends StatelessWidget {
   final Color? inactiveColor;
 
   const CustomBottomNav({
-    Key? key,
+    super.key,
     required this.currentIndex,
     required this.onChanged,
     required this.items,
     this.backgroundColor,
     this.activeColor,
     this.inactiveColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

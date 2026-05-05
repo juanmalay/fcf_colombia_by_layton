@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../../core/design_system/app_colors.dart';
-import '../../../../core/design_system/app_text_styles.dart';
 
 class HomeFeaturedPlayers extends StatelessWidget {
   const HomeFeaturedPlayers({super.key});

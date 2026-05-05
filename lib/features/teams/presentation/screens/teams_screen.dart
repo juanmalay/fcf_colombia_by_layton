@@ -9,7 +9,7 @@ import '../../../../core/design_system/app_colors.dart';
 
 /// Pantalla de lista de selecciones nacionales
 class TeamsScreen extends ConsumerWidget {
-  const TeamsScreen({Key? key}) : super(key: key);
+  const TeamsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -55,11 +55,11 @@ class _TeamsListContent extends StatelessWidget {
   final ValueChanged<String> onToggleFavorite;
 
   const _TeamsListContent({
-    Key? key,
+    super.key,
     required this.teams,
     required this.favorites,
     required this.onToggleFavorite,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +98,7 @@ class _LoadingState extends StatelessWidget {
               color: AppColors.primary.withOpacity(0.1),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Center(
+            child: const Center(
               child: SizedBox(
                 width: 40,
                 height: 40,
@@ -124,10 +124,10 @@ class _ErrorState extends StatelessWidget {
   final VoidCallback onRetry;
 
   const _ErrorState({
-    Key? key,
+    super.key,
     required this.message,
     required this.onRetry,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +142,7 @@ class _ErrorState extends StatelessWidget {
               color: AppColors.error.withOpacity(0.1),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Center(
+            child: const Center(
               child: Icon(
                 Icons.error_outline,
                 color: AppColors.error,

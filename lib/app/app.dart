@@ -6,7 +6,7 @@ import 'router/app_router.dart';
 
 /// Widget principal de la aplicación
 class FcfColombiaApp extends ConsumerWidget {
-  const FcfColombiaApp({Key? key}) : super(key: key);
+  const FcfColombiaApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

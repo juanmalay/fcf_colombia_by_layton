@@ -12,9 +12,9 @@ class TeamDetailScreen extends ConsumerWidget {
   final String teamId;
 
   const TeamDetailScreen({
-    Key? key,
+    super.key,
     required this.teamId,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -64,9 +64,9 @@ class _TeamDetailContent extends StatelessWidget {
   final Team team;
 
   const _TeamDetailContent({
-    Key? key,
+    super.key,
     required this.team,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -92,9 +92,9 @@ class _TeamHeaderHero extends StatelessWidget {
   final Team team;
 
   const _TeamHeaderHero({
-    Key? key,
+    super.key,
     required this.team,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +123,7 @@ class _TeamHeaderHero extends StatelessWidget {
                 logoUrl,
                 fit: BoxFit.contain,
                 errorBuilder: (context, error, stackTrace) {
-                  return Center(
+                  return const Center(
                     child: Icon(
                       Icons.sports_soccer,
                       color: AppColors.primary,
@@ -145,7 +145,7 @@ class _TeamHeaderHero extends StatelessWidget {
                   width: 1,
                 ),
               ),
-              child: Center(
+              child: const Center(
                 child: Icon(
                   Icons.sports_soccer,
                   color: AppColors.primary,
@@ -205,9 +205,9 @@ class _TeamInfoSection extends StatelessWidget {
   final Team team;
 
   const _TeamInfoSection({
-    Key? key,
+    super.key,
     required this.team,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -224,11 +224,11 @@ class _TeamInfoSection extends StatelessWidget {
             color: AppColors.border,
             width: 0.8,
           ),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
-              color: const Color(0x0F000000),
+              color: Color(0x0F000000),
               blurRadius: 8,
-              offset: const Offset(0, 2),
+              offset: Offset(0, 2),
             ),
           ],
         ),
@@ -265,19 +265,19 @@ class _InfoItem extends StatelessWidget {
   final bool isFirst;
 
   const _InfoItem({
-    Key? key,
+    super.key,
     required this.icon,
     required this.label,
     required this.value,
     this.isFirst = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         if (!isFirst)
-          Divider(
+          const Divider(
             height: 1,
             color: AppColors.border,
             indent: 16,
@@ -351,7 +351,7 @@ class _LoadingState extends StatelessWidget {
               color: AppColors.primary.withOpacity(0.1),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Center(
+            child: const Center(
               child: SizedBox(
                 width: 40,
                 height: 40,
@@ -377,10 +377,10 @@ class _ErrorState extends StatelessWidget {
   final VoidCallback onRetry;
 
   const _ErrorState({
-    Key? key,
+    super.key,
     required this.message,
     required this.onRetry,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -395,7 +395,7 @@ class _ErrorState extends StatelessWidget {
               color: AppColors.error.withOpacity(0.1),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Center(
+            child: const Center(
               child: Icon(
                 Icons.error_outline,
                 color: AppColors.error,

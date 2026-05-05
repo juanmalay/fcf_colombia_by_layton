@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../domain/entities/match.dart' as match_entity;
 import '../../domain/entities/team.dart' as team_entity;
-import 'team_model.dart';
 
 part 'match_model.freezed.dart';
 part 'match_model.g.dart';

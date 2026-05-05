@@ -7,7 +7,7 @@ import '../providers/settings_providers.dart';
 
 /// Pantalla de configuracion con preferencias persistidas localmente.
 class SettingsScreen extends ConsumerWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -73,9 +73,9 @@ class SettingsScreen extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: AppSpacing.lg),
-          _SettingsSection(
+          const _SettingsSection(
             title: 'Informacion',
-            children: const [
+            children: [
               _InfoTile(title: 'Version de la aplicacion', subtitle: '1.0.0'),
               _InfoTile(title: 'Acerca de', subtitle: 'FCF Colombia no oficial'),
             ],

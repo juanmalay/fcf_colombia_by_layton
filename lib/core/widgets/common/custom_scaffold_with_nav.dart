@@ -50,13 +50,13 @@ class CustomScaffoldWithNav extends StatefulWidget {
   final Color? backgroundColor;
 
   const CustomScaffoldWithNav({
-    Key? key,
+    super.key,
     required this.body,
     this.initialTab = MainTab.home,
     required this.onTabChanged,
     this.appBar,
     this.backgroundColor,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomScaffoldWithNav> createState() => _CustomScaffoldWithNavState();

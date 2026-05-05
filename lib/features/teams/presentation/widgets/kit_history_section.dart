@@ -11,9 +11,9 @@ class KitHistorySection extends ConsumerWidget {
   final String teamId;
 
   const KitHistorySection({
-    Key? key,
+    super.key,
     required this.teamId,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,7 +38,7 @@ class KitHistorySection extends ConsumerWidget {
           children: [
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text(
                     'Historial de camisetas',
                     style: AppTextStyles.h3,

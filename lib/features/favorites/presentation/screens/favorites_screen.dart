@@ -30,7 +30,7 @@ const _newsFavorites = [
 
 /// Pantalla de favoritos con persistencia local.
 class FavoritesScreen extends ConsumerWidget {
-  const FavoritesScreen({Key? key}) : super(key: key);
+  const FavoritesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

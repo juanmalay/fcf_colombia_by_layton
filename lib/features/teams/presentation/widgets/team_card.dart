@@ -11,12 +11,12 @@ class TeamCard extends StatelessWidget {
   final VoidCallback? onToggleFavorite;
 
   const TeamCard({
-    Key? key,
+    super.key,
     required this.team,
     this.onTap,
     this.isFavorite = false,
     this.onToggleFavorite,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +31,11 @@ class TeamCard extends StatelessWidget {
             color: AppColors.border,
             width: 0.8,
           ),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
-              color: const Color(0x0F000000),
+              color: Color(0x0F000000),
               blurRadius: 12,
-              offset: const Offset(0, 3),
+              offset: Offset(0, 3),
             ),
           ],
         ),
@@ -60,7 +60,7 @@ class TeamCard extends StatelessWidget {
                     team.logoUrl!,
                     fit: BoxFit.contain,
                     errorBuilder: (context, error, stackTrace) {
-                      return Center(
+                      return const Center(
                         child: Icon(
                           Icons.sports_soccer,
                           color: AppColors.primary,
@@ -82,7 +82,7 @@ class TeamCard extends StatelessWidget {
                       width: 0.5,
                     ),
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Icon(
                       Icons.sports_soccer,
                       color: AppColors.primary,
@@ -142,7 +142,7 @@ class TeamCard extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 8),
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.stadium,
                               size: 14,
                               color: AppColors.textSecondary,
@@ -176,7 +176,7 @@ class TeamCard extends StatelessWidget {
                     ),
                     tooltip: isFavorite ? 'Quitar favorito' : 'Agregar favorito',
                   ),
-                  Icon(
+                  const Icon(
                     Icons.arrow_forward_ios,
                     size: 16,
                     color: AppColors.textSecondary,

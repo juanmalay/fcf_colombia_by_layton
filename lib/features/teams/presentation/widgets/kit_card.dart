@@ -10,11 +10,11 @@ class KitCard extends StatelessWidget {
   final VoidCallback onToggleFavorite;
 
   const KitCard({
-    Key? key,
+    super.key,
     required this.kit,
     required this.isFavorite,
     required this.onToggleFavorite,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +145,7 @@ class _KitImageFallback extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+          const Icon(
             Icons.checkroom,
             color: AppColors.primary,
             size: 28,
